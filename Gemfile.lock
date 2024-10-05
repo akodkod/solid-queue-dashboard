@@ -87,6 +87,7 @@ GEM
     crass (1.0.6)
     date (3.3.4)
     drb (2.2.1)
+    dry-cli (1.1.0)
     erubi (1.13.0)
     et-orbi (1.2.11)
       tzinfo
@@ -114,6 +115,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.7)
     minitest (5.25.1)
     net-imap (0.4.16)
       date
@@ -125,6 +127,9 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
+    nokogiri (1.16.7)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.16.7-arm64-darwin)
       racc (~> 1.4)
     parallel (1.26.3)
@@ -136,6 +141,8 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.7)
+    rack-proxy (0.7.7)
+      rack
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -223,6 +230,10 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     useragent (0.16.10)
+    vite_ruby (3.8.2)
+      dry-cli (>= 0.7, < 2)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     webrick (1.8.2)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -239,6 +250,7 @@ DEPENDENCIES
   rubocop (~> 1.66)
   rubocop-rails-omakase (~> 1.0)
   solid_queue_dashboard!
+  vite_ruby (~> 3.8)
 
 BUNDLED WITH
    2.5.21

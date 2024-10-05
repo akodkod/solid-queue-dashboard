@@ -1,0 +1,39 @@
+<%= table_row data: { href: job_path(job) } do %>
+  <%= table_cell class: "pl-6 font-medium text-zinc-900 dark:text-zinc-100" do %>
+    <%= job_id(job) %>
+
+    <% if job.arguments["executions"] > 0 %>
+      <span class="text-xs text-muted-foreground">
+        (x<%= job.arguments["executions"] +1 %>)
+      </span>
+    <% end %>
+  <% end %>
+
+  <%= table_cell job.queue_name.titleize %>
+  <%= table_cell class: "font-medium text-zinc-900 dark:text-zinc-100" do %>
+    <%= job.class_name %><br />
+    <% if job.arguments["arguments"].present? %>
+      <p class="text-xs text-muted-foreground truncate">
+        <%= truncate(job.arguments["arguments"].map(&:to_json).to_sentence, length: 50) %>
+      </p>
+    <% end %>
+  <% end %>
+  <%= table_cell job_status_badge(job) %>
+  <%= table_cell job.scheduled_at, data: { date: job.scheduled_at.to_fs(:database) } %>
+  <%= table_cell do %>
+    <% if SolidQueueDashboard::Job.finished?(job) %>
+      <p class="text-sm text-foreground/60">
+        Finished at <strong class="font-medium text-accent-foreground"><%= job.finished_at %></strong>
+      </p>
+    <% elsif SolidQueueDashboard::Job.failed?(job) %>
+      <p class="text-sm text-balance text-red-700 dark:text-red-300">
+        <%= job_error_message(job) %>
+      </p>
+    <% elsif SolidQueueDashboard::Job.scheduled?(job) %>
+    <% else %>
+      <p class="text-sm text-foreground/60">
+        Pending for <strong class="font-medium text-accent-foreground"><%= time_ago_in_words(job.scheduled_at) %></strong>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>

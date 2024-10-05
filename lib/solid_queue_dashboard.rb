@@ -9,6 +9,7 @@ end
 require_relative "solid_queue_dashboard/version"
 require_relative "solid_queue_dashboard/configuration"
 require_relative "solid_queue_dashboard/engine"
+require_relative "solid_queue_dashboard/job"
 
 module SolidQueueDashboard
   class Error < StandardError; end

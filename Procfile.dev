@@ -1,0 +1,2 @@
+test_app:   cd test_app && ./bin/rails server -p 3000
+tailwind:   bun watch

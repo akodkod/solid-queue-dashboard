@@ -1,0 +1,7 @@
+<%= navbar class: "mb-8" do %>
+  <%= link_to "Solid Queue", root_path, class: "text-xl font-bold tracking-tight" %>
+
+  <%= navbar_item "Jobs", href: jobs_path %>
+  <%= navbar_item "Workers", href: "#" %>
+  <%= navbar_item "Failures", href: "#" %>
+<% end %>

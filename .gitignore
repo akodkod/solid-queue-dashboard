@@ -7,3 +7,9 @@
 /spec/reports/
 /tmp/
 /.idea/
+/node_modules/
+/test_app/storage/*.sqlite3
+/test_app/storage/*.sqlite3-journal
+/test_app/log/*.log
+/test_app/tmp/*
+

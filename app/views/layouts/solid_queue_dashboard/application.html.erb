@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Solid Queue Dashboard</title>
-  </head>
-  <body>
+<html lang="en">
+<head>
+  <title>Solid Queue Dashboard</title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "solid_queue_dashboard/application", media: "all" %>
+  <%= javascript_include_tag "solid_queue_dashboard/application" %>
+</head>
+<body class="pb-[15vh] sm:pb-[25vh]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <%= render 'navbar' %>
     <%= yield %>
-  </body>
+  </div>
+</body>
 </html>

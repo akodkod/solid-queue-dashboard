@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
-set -euo pipefail
-IFS=$'\n\t'
-set -vx
 
-cd test_app
-bin/rails server
+exec foreman start -f Procfile.dev

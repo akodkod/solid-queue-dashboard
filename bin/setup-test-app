@@ -5,5 +5,4 @@ set -vx
 
 cd test_app
 bundle install
-bin/rails db:create
-bin/rails db:migrate
+bin/rails db:setup
