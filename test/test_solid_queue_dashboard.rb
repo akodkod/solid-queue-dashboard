@@ -4,7 +4,7 @@ require "test_helper"
 
 class TestSolidQueueDashboard < Minitest::Test
   def test_that_it_has_a_version_number
-    refute_nil ::SolidQueueDashboard::VERSION
+    assert_not_nil ::SolidQueueDashboard::VERSION
   end
 
   def test_it_does_something_useful
