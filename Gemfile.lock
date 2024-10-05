@@ -1,0 +1,47 @@
+PATH
+  remote: .
+  specs:
+    solid_queue_dashboard (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.2)
+    json (2.7.2)
+    language_server-protocol (3.17.0.3)
+    minitest (5.25.1)
+    parallel (1.26.3)
+    parser (3.3.5.0)
+      ast (~> 2.4.1)
+      racc
+    racc (1.8.1)
+    rainbow (3.1.1)
+    rake (13.2.1)
+    regexp_parser (2.9.2)
+    rubocop (1.66.1)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.4, < 3.0)
+      rubocop-ast (>= 1.32.2, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.32.3)
+      parser (>= 3.3.1.0)
+    ruby-progressbar (1.13.0)
+    unicode-display_width (2.6.0)
+
+PLATFORMS
+  arm64-darwin-23
+  ruby
+
+DEPENDENCIES
+  minitest (~> 5.16)
+  rake (~> 13.0)
+  rubocop (~> 1.21)
+  solid_queue_dashboard!
+
+BUNDLED WITH
+   2.5.21
