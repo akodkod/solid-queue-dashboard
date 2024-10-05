@@ -1,0 +1,149 @@
+Started GET "/" for 127.0.0.1 at 2024-10-05 14:14:10 +0700
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='TestApp'*/[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='TestApp'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TestApp'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/akodkod/.rbenv/versions/3.3.4/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/akodkod/.rbenv/versions/3.3.4/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 5.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/icon.png" for 127.0.0.1 at 2024-10-05 14:14:10 +0700
+  
+ActionController::RoutingError (No route matches [GET] "/icon.png"):
+  
+Started GET "/" for 127.0.0.1 at 2024-10-05 14:18:02 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TestApp'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/akodkod/.rbenv/versions/3.3.4/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/akodkod/.rbenv/versions/3.3.4/lib/ruby/gems/3.3.0/gems/railties-8.0.0.beta1/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 4.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:18:10 +0700
+  
+ActionController::RoutingError (No route matches [GET] "/solid-queue-dashboard"):
+  
+Started GET "/favicon.ico" for 127.0.0.1 at 2024-10-05 14:18:10 +0700
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:18:31 +0700
+  
+ActionController::RoutingError (No route matches [GET] "/solid-queue-dashboard"):
+  
+Started GET "/sqd" for 127.0.0.1 at 2024-10-05 14:18:37 +0700
+  
+ActionController::RoutingError (No route matches [GET] "/sqd"):
+  
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:18:40 +0700
+  
+ActionController::RoutingError (No route matches [GET] "/solid-queue-dashboard"):
+  
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:20:26 +0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='TestApp'*/[0m
+Processing by SolidQueueDashboard::DashboardController#index as HTML
+Completed 406 Not Acceptable in 4ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::MissingExactTemplate (SolidQueueDashboard::DashboardController#index is missing a template for request formats: text/html):
+  
+actionpack (8.0.0.beta1) lib/action_controller/metal/implicit_render.rb:49:in `default_render'
+actionpack (8.0.0.beta1) lib/action_controller/metal/basic_implicit_render.rb:9:in `send_action'
+actionpack (8.0.0.beta1) lib/abstract_controller/base.rb:226:in `process_action'
+actionpack (8.0.0.beta1) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (8.0.0.beta1) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (8.0.0.beta1) lib/active_support/callbacks.rb:109:in `run_callbacks'
+actionpack (8.0.0.beta1) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (8.0.0.beta1) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (8.0.0.beta1) lib/action_controller/metal/instrumentation.rb:76:in `block in process_action'
+activesupport (8.0.0.beta1) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (8.0.0.beta1) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (8.0.0.beta1) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (8.0.0.beta1) lib/action_controller/metal/instrumentation.rb:75:in `process_action'
+actionpack (8.0.0.beta1) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (8.0.0.beta1) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (8.0.0.beta1) lib/abstract_controller/base.rb:163:in `process'
+actionview (8.0.0.beta1) lib/action_view/rendering.rb:40:in `process'
+actionpack (8.0.0.beta1) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (8.0.0.beta1) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (8.0.0.beta1) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (8.0.0.beta1) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (8.0.0.beta1) lib/action_dispatch/routing/route_set.rb:908:in `call'
+railties (8.0.0.beta1) lib/rails/engine/lazy_route_set.rb:68:in `call'
+railties (8.0.0.beta1) lib/rails/engine.rb:536:in `call'
+railties (8.0.0.beta1) lib/rails/railtie.rb:226:in `public_send'
+railties (8.0.0.beta1) lib/rails/railtie.rb:226:in `method_missing'
+actionpack (8.0.0.beta1) lib/action_dispatch/routing/mapper.rb:33:in `block in <class:Constraints>'
+actionpack (8.0.0.beta1) lib/action_dispatch/routing/mapper.rb:62:in `serve'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (8.0.0.beta1) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (8.0.0.beta1) lib/action_dispatch/routing/route_set.rb:908:in `call'
+railties (8.0.0.beta1) lib/rails/engine/lazy_route_set.rb:68:in `call'
+rack (3.1.7) lib/rack/etag.rb:29:in `call'
+rack (3.1.7) lib/rack/conditional_get.rb:31:in `call'
+rack (3.1.7) lib/rack/head.rb:15:in `call'
+activerecord (8.0.0.beta1) lib/active_record/migration.rb:672:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.0.0.beta1) lib/active_support/callbacks.rb:100:in `run_callbacks'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.0.0.beta1) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.0.0.beta1) lib/rails/rack/logger.rb:29:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.1.7) lib/rack/runtime.rb:24:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.1.7) lib/rack/sendfile.rb:114:in `call'
+actionpack (8.0.0.beta1) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.0.0.beta1) lib/rails/engine.rb:536:in `call'
+puma (6.4.3) lib/puma/configuration.rb:272:in `call'
+puma (6.4.3) lib/puma/request.rb:100:in `block in handle_request'
+puma (6.4.3) lib/puma/thread_pool.rb:378:in `with_force_shutdown'
+puma (6.4.3) lib/puma/request.rb:99:in `handle_request'
+puma (6.4.3) lib/puma/server.rb:464:in `process_client'
+puma (6.4.3) lib/puma/server.rb:245:in `block in run'
+puma (6.4.3) lib/puma/thread_pool.rb:155:in `block in spawn_thread'
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:21:52 +0700
+Processing by SolidQueueDashboard::DashboardController#index as HTML
+  Rendering layout /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/layouts/solid_queue_dashboard/application.html.erb
+  Rendering /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/solid_queue_dashboard/dashboard/index.html.erb within layouts/solid_queue_dashboard/application
+  Rendered /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/solid_queue_dashboard/dashboard/index.html.erb within layouts/solid_queue_dashboard/application (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/layouts/solid_queue_dashboard/application.html.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:21:58 +0700
+Processing by SolidQueueDashboard::DashboardController#index as HTML
+  Rendering layout /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/layouts/solid_queue_dashboard/application.html.erb
+  Rendering /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/solid_queue_dashboard/dashboard/index.html.erb within layouts/solid_queue_dashboard/application
+  Rendered /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/solid_queue_dashboard/dashboard/index.html.erb within layouts/solid_queue_dashboard/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/layouts/solid_queue_dashboard/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/solid-queue-dashboard" for 127.0.0.1 at 2024-10-05 14:22:01 +0700
+Processing by SolidQueueDashboard::DashboardController#index as HTML
+  Rendering layout /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/layouts/solid_queue_dashboard/application.html.erb
+  Rendering /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/solid_queue_dashboard/dashboard/index.html.erb within layouts/solid_queue_dashboard/application
+  Rendered /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/solid_queue_dashboard/dashboard/index.html.erb within layouts/solid_queue_dashboard/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout /Users/akodkod/Dev/Personal/solid_queue_dashboard/app/views/layouts/solid_queue_dashboard/application.html.erb (Duration: 1.4ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+

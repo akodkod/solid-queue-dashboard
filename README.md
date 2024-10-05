@@ -26,9 +26,22 @@ TODO: Write usage instructions here
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Development
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
+
+To install this gem onto your local machine, run `bundle exec rake install`.
+
+### Testing with the sample Rails application
+
+This gem includes a sample Rails application for testing purposes. To set it up:
+
+1. Run `bin/setup-test-app` to set up the test Rails application.
+2. cd into the `test_app` directory: `cd test_app`
+3. Start the Rails server: `bin/rails server`
+4. Visit `http://localhost:3000/solid-queue-dashboard` in your browser to see the dashboard.
+
+To create sample jobs for testing, run:
 
 ## Contributing
 

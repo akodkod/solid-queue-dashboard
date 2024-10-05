@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+cd test_app
+bundle install
+bin/rails db:create
+bin/rails db:migrate
