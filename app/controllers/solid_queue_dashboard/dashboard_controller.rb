@@ -2,7 +2,7 @@ module SolidQueueDashboard
   class DashboardController < ApplicationController
     def index
       @jobs = SolidQueueDashboard.decorate(SolidQueue::Job.all)
-      @class_names = SolidQueueDashboard.class_names
+      @job_class_names = SolidQueueDashboard.job_class_names
     end
   end
 end

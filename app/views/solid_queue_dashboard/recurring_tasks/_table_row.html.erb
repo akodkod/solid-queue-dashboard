@@ -1,0 +1,19 @@
+<%= table_row data: { href: recurring_task_path(recurring_task) } do %>
+  <%= table_cell class: "pl-6 font-medium text-zinc-900 dark:text-zinc-100" do %>
+    <%= recurring_task_circle(recurring_task, class: "mr-1 -translate-y-px") %>
+    <%= recurring_task.id %>
+  <% end %>
+
+  <%= table_cell recurring_task_type_badge(recurring_task) %>
+
+  <%= table_cell do %>
+    <span class="font-medium">
+      <%= recurring_task.class_name || recurring_task.command %>
+    </span>
+  <% end %>
+
+  <%= table_cell recurring_task.schedule %>
+  <%= table_cell recurring_task.queue_name&.titleize || empty_value %>
+  <%= table_cell recurring_task.priority || empty_value %>
+  <%= table_cell recurring_task.key %>
+<% end %>

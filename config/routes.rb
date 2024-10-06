@@ -7,5 +7,7 @@ SolidQueueDashboard::Engine.routes.draw do
 
   resources :processes, only: [ :index, :show ]
 
+  resources :recurring_tasks, only: [ :index, :show ]
+
   root "dashboard#index"
 end

@@ -1,0 +1,18 @@
+<%= card do %>
+  <%= card_header class: "border-b" do %>
+    <%= card_title "Recurring Tasks" %>
+    <%= card_description "List of recurring tasks" %>
+  <% end %>
+
+  <%= card_content class: "!p-0" do %>
+    <% if @recurring_tasks.any? %>
+      <%= render "solid_queue_dashboard/recurring_tasks/table", recurring_tasks: @recurring_tasks %>
+    <% else %>
+      <div class="px-6 py-12">
+        <p class="text-muted-foreground text-center">
+          No recurring tasks found
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

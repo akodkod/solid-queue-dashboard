@@ -3,7 +3,7 @@ module SolidQueueDashboard
     def navbar(options = {}, &block)
       tag_type = options.delete(:tag) || :nav
 
-      base_classes = "flex items-center gap-4 bg-background py-3"
+      base_classes = "flex items-center gap-4 bg-background py-4"
 
       classes = [ base_classes, options[:class] ].compact.join(" ")
       options[:class] = classes

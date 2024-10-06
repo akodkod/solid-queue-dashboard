@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Format dates
   document.querySelectorAll('[data-date]').forEach(function(element) {
-    const dateString = element.getAttribute('data-date');
+    const dateString = element.textContent.trim();
     const date = new Date(dateString);
 
     if (isNaN(date.getTime())) return;

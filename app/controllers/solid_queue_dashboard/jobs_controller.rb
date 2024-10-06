@@ -4,8 +4,8 @@ module SolidQueueDashboard
     before_action :set_job, only: [ :show, :retry ]
 
     def index
-      @queue_names = SolidQueueDashboard.queue_names
-      @class_names = SolidQueueDashboard.class_names
+      @job_queue_names = SolidQueueDashboard.job_queue_names
+      @job_class_names = SolidQueueDashboard.job_class_names
     end
 
     def show

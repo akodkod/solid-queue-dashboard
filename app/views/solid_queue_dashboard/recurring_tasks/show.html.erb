@@ -1,0 +1,131 @@
+<h1 class="text-4xl flex items-center gap-2">
+  <%= recurring_task_circle(@recurring_task, class: "!size-4") %>
+
+  <span class="tracking-tighter font-bold">
+    Recurring Task #<%= @recurring_task.id %>
+  </span>
+
+  <%= recurring_task_type_badge(@recurring_task, class: "ml-1.5") %>
+</h1>
+
+<%= card class: "mt-6" do %>
+  <%= card_content class: "pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16" do %>
+    <div class="space-y-4">
+      <%= info_line do %>
+        <%= info_line_label "Type" %>
+        <%= info_line_separator %>
+        <%= info_line_value recurring_task_type_badge(@recurring_task) %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Key" %>
+        <%= info_line_separator %>
+        <%= info_line_value @recurring_task.key %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Schedule" %>
+        <%= info_line_separator %>
+        <%= info_line_value @recurring_task.schedule %>
+      <% end %>
+
+      <% if @recurring_task.queue_name? %>
+        <%= info_line do %>
+          <%= info_line_label "Queue Name" %>
+          <%= info_line_separator %>
+          <%= info_line_value @recurring_task.queue_name %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="space-y-4">
+      <% if @recurring_task.priority? %>
+        <%= info_line do %>
+          <%= info_line_label "Priority" %>
+          <%= info_line_separator %>
+          <%= info_line_value @recurring_task.priority %>
+        <% end %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Static" %>
+        <%= info_line_separator %>
+        <%= info_line_value @recurring_task.static ? "Yes" : "No" %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Created At" %>
+        <%= info_line_separator %>
+        <%= info_line_value @recurring_task.created_at.to_fs(:database), data: { date: true } %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Updated At" %>
+        <%= info_line_separator %>
+        <%= info_line_value @recurring_task.updated_at.to_fs(:database), data: { date: true } %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @recurring_task.command.present? %>
+  <%= card class: "mt-8 overflow-hidden" do %>
+    <%= card_header class: "border-b border-t-4 border-t-blue-500" do %>
+      <%= card_title "Command" %>
+      <%= card_description "The command to be executed" %>
+    <% end %>
+    <%= card_content class: "pt-6" do %>
+      <pre><%= @recurring_task.command %></pre>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @recurring_task.class_name.present? %>
+  <%= card class: "mt-8 overflow-hidden" do %>
+    <%= card_header class: "border-b border-t-4 border-t-green-500" do %>
+      <%= card_title "Job Class" %>
+      <%= card_description "The job class to be executed" %>
+    <% end %>
+    <%= card_content class: "pt-6" do %>
+      <pre><%= @recurring_task.class_name %></pre>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @recurring_task.arguments.present? %>
+  <%= card class: "mt-8 overflow-hidden" do %>
+    <%= card_header class: "border-b border-t-4 border-t-purple-500" do %>
+      <%= card_title "Arguments" %>
+      <%= card_description "The arguments to be passed to the job" %>
+    <% end %>
+    <%= card_content class: "pt-6" do %>
+      <pre><%= JSON.pretty_generate(JSON.parse(@recurring_task.arguments)) rescue @recurring_task.arguments %></pre>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @recurring_task.description.present? %>
+  <%= card class: "mt-8 overflow-hidden" do %>
+    <%= card_header class: "border-b border-t-4 border-t-amber-500" do %>
+      <%= card_title "Description" %>
+      <%= card_description "Additional information about this recurring task" %>
+    <% end %>
+    <%= card_content class: "pt-6" do %>
+      <pre><%= @recurring_task.description %></pre>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= card class: "mt-8 overflow-hidden" do %>
+  <%= card_header class: "border-b border-t-4 border-t-zinc-500" do %>
+    <%= card_title "Next Runs" %>
+    <%= card_description "Based on the current schedule" %>
+  <% end %>
+  <%= card_content class: "pt-5" do %>
+    <ul class="list-decimal marker:text-sm marker:text-muted-foreground ml-4 space-y-1">
+      <% @recurring_task.next_runs.each do |run_time| %>
+        <li data-date><%= run_time.strftime("%Y-%m-%d %H:%M:%S %Z") %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

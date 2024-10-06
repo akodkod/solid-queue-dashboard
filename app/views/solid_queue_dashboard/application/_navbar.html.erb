@@ -1,7 +1,7 @@
-<%= navbar class: "mb-8" do %>
+<%= navbar class: "mb-6" do %>
   <%= link_to "Solid Queue", root_path, class: "text-xl font-bold tracking-tight" %>
 
   <%= navbar_item "Jobs", href: jobs_path %>
   <%= navbar_item "Processes", href: processes_path %>
-  <%= navbar_item "Recurring Tasks", href: "#" %>
+  <%= navbar_item "Recurring Tasks", href: recurring_tasks_path %>
 <% end %>

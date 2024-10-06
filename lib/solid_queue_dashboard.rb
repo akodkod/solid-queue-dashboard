@@ -6,19 +6,22 @@ require_relative "solid_queue_dashboard/configuration"
 require_relative "solid_queue_dashboard/engine"
 require_relative "solid_queue_dashboard/job"
 require_relative "solid_queue_dashboard/process"
+require_relative "solid_queue_dashboard/recurring_task"
 require_relative "solid_queue_dashboard/decorators/job_decorator"
 require_relative "solid_queue_dashboard/decorators/jobs_decorator"
 require_relative "solid_queue_dashboard/decorators/process_decorator"
 require_relative "solid_queue_dashboard/decorators/processes_decorator"
+require_relative "solid_queue_dashboard/decorators/recurring_task_decorator"
+require_relative "solid_queue_dashboard/decorators/recurring_tasks_decorator"
 
 module SolidQueueDashboard
   class Error < StandardError; end
 
-  def self.queue_names
+  def self.job_queue_names
     SolidQueue::Job.distinct.pluck(:queue_name)
   end
 
-  def self.class_names
+  def self.job_class_names
     SolidQueue::Job.distinct.pluck(:class_name)
   end
 
@@ -32,6 +35,10 @@ module SolidQueueDashboard
       Decorators::ProcessDecorator.new(object)
     when SolidQueue::Process.const_get(:ActiveRecord_Relation)
       Decorators::ProcessesDecorator.new(object)
+    when SolidQueue::RecurringTask
+      Decorators::RecurringTaskDecorator.new(object)
+    when SolidQueue::RecurringTask.const_get(:ActiveRecord_Relation)
+      Decorators::RecurringTasksDecorator.new(object)
     else
       raise Error, "Cannot decorate #{object.class}"
     end

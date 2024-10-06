@@ -44,13 +44,13 @@
       <%= info_line do %>
         <%= info_line_label "Last Heartbeat" %>
         <%= info_line_separator %>
-        <%= info_line_value @process.last_heartbeat_at, data: { date: @process.last_heartbeat_at.to_fs(:database) } %>
+        <%= info_line_value @process.last_heartbeat_at.to_fs(:database), data: { date: true } %>
       <% end %>
 
       <%= info_line do %>
         <%= info_line_label "Created At" %>
         <%= info_line_separator %>
-        <%= info_line_value @process.created_at, data: { date: @process.created_at.to_fs(:database) } %>
+        <%= info_line_value @process.created_at.to_fs(:database), data: { date: true } %>
       <% end %>
 
       <%= info_line do %>

@@ -9,14 +9,14 @@
   <%= table_cell process.pid %>
 
   <%= table_cell do %>
-    <%= tag.span process.created_at, data: { date: process.created_at.to_fs(:database) } %><br />
+    <%= tag.span process.created_at.to_fs(:database), data: { date: true } %><br />
     <span class="text-xs text-muted-foreground">
       <%= time_ago_in_words(process.created_at, include_seconds: true) %> ago
     </span>
   <% end %>
 
   <%= table_cell title: process.last_heartbeat_at do %>
-    <%= tag.span process.last_heartbeat_at, data: { date: process.last_heartbeat_at.to_fs(:database) } %><br />
+    <%= tag.span process.last_heartbeat_at.to_fs(:database), data: { date: true } %><br />
     <span class="text-xs text-muted-foreground">
       <%= time_ago_in_words(process.last_heartbeat_at, include_seconds: true) %> ago
     </span>

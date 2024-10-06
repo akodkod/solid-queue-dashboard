@@ -1,7 +1,7 @@
 <%= form_with url: jobs_path, method: :get, class: "flex flex-row gap-2" do |form| %>
-  <% if @queue_names.size > 1 %>
+  <% if @job_queue_names.size > 1 %>
     <%= form.select :queue_name,
-      @queue_names.map { |name| [name.to_s.titleize, name] },
+      @job_queue_names.map { |name| [name.to_s.titleize, name] },
       { include_blank: "All Queues", selected: params[:queue_name] },
       class: "select",
       data: { auto_submit: true }
@@ -16,7 +16,7 @@
   %>
 
   <%= form.select :class_name,
-    @class_names.map { |name| [name.to_s.titleize, name] },
+    @job_class_names.map { |name| [name.to_s.titleize, name] },
     { include_blank: "All Jobs", selected: params[:class_name] },
     class: "select",
     data: { auto_submit: true }

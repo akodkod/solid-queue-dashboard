@@ -24,7 +24,9 @@
       <%= info_line do %>
         <%= info_line_label "Queue" %>
         <%= info_line_separator %>
-        <%= info_line_value @job.queue_name.titleize %>
+        <%= info_line_value do %>
+          <%= link_to @job.queue_name.titleize, jobs_path(queue_name: @job.queue_name), class: "link" %>
+        <% end %>
       <% end %>
 
       <%= info_line do %>
@@ -52,13 +54,13 @@
       <%= info_line do %>
         <%= info_line_label "Created At" %>
         <%= info_line_separator %>
-        <%= info_line_value @job.created_at, data: { date: @job.created_at.to_fs(:database) } %>
+        <%= info_line_value @job.created_at, data: { date: true } %>
       <% end %>
 
       <%= info_line do %>
         <%= info_line_label "Scheduled At" %>
         <%= info_line_separator %>
-        <%= info_line_value @job.scheduled_at, data: { date: @job.scheduled_at.to_fs(:database) } %>
+        <%= info_line_value @job.scheduled_at, data: { date: true } %>
       <% end %>
 
       <% if @job.success? || @job.retried? %>
@@ -71,7 +73,7 @@
         </span>
 
           <%= info_line_value do %>
-            <%= tag.span @job.finished_at, data: { date: @job.finished_at.to_fs(:database) } %>
+            <%= tag.span @job.finished_at.to_fs(:database), data: { date: true } %>
           <% end %>
         <% end %>
 
@@ -86,7 +88,7 @@
         <%= info_line do %>
           <%= info_line_label "Failed At" %>
           <%= info_line_separator %>
-          <%= info_line_value @job.failed_execution.created_at, data: { date: @job.failed_execution.created_at.to_fs(:database) } %>
+          <%= info_line_value @job.failed_execution.created_at.to_fs(:database), data: { date: true } %>
         <% end %>
 
         <%= info_line do %>

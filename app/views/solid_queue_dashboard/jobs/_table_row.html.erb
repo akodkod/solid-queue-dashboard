@@ -26,7 +26,7 @@
   <%= table_cell job_status_badge(job) %>
 
   <%= table_cell do %>
-    <%= tag.span job.scheduled_at, data: { date: job.scheduled_at.to_fs(:database) }, class: "font-medium" %><br />
+    <%= tag.span job.scheduled_at, data: { date: true }, class: "font-medium" %><br />
     <span class="text-xs text-muted-foreground">
       <%= time_ago_in_words(job.scheduled_at, include_seconds: true) %> ago
     </span>
@@ -39,7 +39,7 @@
         <span class="text-xs"><%= time_ago_in_words(job.scheduled_at, include_seconds: true) %> ago</span>
       </p>
     <% elsif job.failed? %>
-      <p class="text-sm text-balance text-red-700 dark:text-red-300 font-medium">
+      <p class="text-sm text-balance text-red-700 dark:text-red-500 font-medium">
         <%= job.error_message %>
       </p>
     <% elsif job.pending? %>

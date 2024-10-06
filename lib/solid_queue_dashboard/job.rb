@@ -4,8 +4,8 @@ module SolidQueueDashboard
     SUCCESS = :success
     RETRIED = :retried
     FAILED = :failed
-    SCHEDULED = :scheduled
     PENDING = :pending
+    SCHEDULED = :scheduled
 
     STATUSES = [ SUCCESS, RETRIED, FAILED, SCHEDULED, PENDING ]
   end
