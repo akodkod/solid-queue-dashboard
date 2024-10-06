@@ -1,0 +1,28 @@
+<%= card do %>
+  <%= card_header class: "border-b" do %>
+    <%= card_title "Processes" %>
+    <%= card_description "List of active processes" %>
+
+    <div class="!mt-4">
+      <%= render "filters" %>
+    </div>
+  <% end %>
+
+  <%= card_content class: "!p-0" do %>
+    <% if @processes.any? %>
+      <%= render "solid_queue_dashboard/processes/table", processes: @processes %>
+    <% else %>
+      <div class="px-6 py-12">
+        <p class="text-muted-foreground text-center">
+          No processes found
+        </p>
+
+        <% if any_processes_filters? %>
+          <div class="flex justify-center mt-2">
+            <%= button_link "Clear Filters", href: processes_path, variant: "outline" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,75 @@
+<h1 class="text-4xl  flex items-center gap-2">
+  <%= process_circle(@process, class: "!size-4") %>
+
+  <span class="tracking-tighter font-bold">
+    Process #<%= @process.id %>
+  </span>
+
+  <%= process_kind_badge(@process, class: "ml-1.5") %>
+
+  <% if @process.dead? %>
+    <%= badge "Dead?", variant: "red" %>
+  <% end %>
+</h1>
+
+<%= card class: "mt-6" do %>
+  <%= card_content class: "pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16" do %>
+    <div class="space-y-4">
+      <%= info_line do %>
+        <%= info_line_label "Kind" %>
+        <%= info_line_separator %>
+        <%= info_line_value process_kind_badge(@process) %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Hostname" %>
+        <%= info_line_separator %>
+        <%= info_line_value @process.hostname %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "PID" %>
+        <%= info_line_separator %>
+        <%= info_line_value @process.pid %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Name" %>
+        <%= info_line_separator %>
+        <%= info_line_value @process.name %>
+      <% end %>
+    </div>
+
+    <div class="space-y-4">
+      <%= info_line do %>
+        <%= info_line_label "Last Heartbeat" %>
+        <%= info_line_separator %>
+        <%= info_line_value @process.last_heartbeat_at, data: { date: @process.last_heartbeat_at.to_fs(:database) } %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Created At" %>
+        <%= info_line_separator %>
+        <%= info_line_value @process.created_at, data: { date: @process.created_at.to_fs(:database) } %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Time Running" %>
+        <%= info_line_separator %>
+        <%= info_line_value distance_of_time_in_words(@process.created_at, Time.current, include_seconds: true) %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @process.metadata.present? %>
+  <%= card class: "mt-8 overflow-hidden" do %>
+    <%= card_header class: "border-b border-t-4 border-t-blue-500" do %>
+      <%= card_title "Metadata" %>
+      <%= card_description "Additional information about this process" %>
+    <% end %>
+    <%= card_content class: "pt-6" do %>
+      <pre><%= JSON.pretty_generate(@process.metadata) %></pre>
+    <% end %>
+  <% end %>
+<% end %>

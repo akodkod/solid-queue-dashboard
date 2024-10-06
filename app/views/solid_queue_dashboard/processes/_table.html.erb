@@ -1,0 +1,16 @@
+<%= table do %>
+  <%= table_header do %>
+    <%= table_row do %>
+      <%= table_head "ID", class: "pl-6" %>
+      <%= table_head "Kind" %>
+      <%= table_head "Hostname" %>
+      <%= table_head "PID" %>
+      <%= table_head "Launched At" %>
+      <%= table_head "Last Heartbeat" %>
+      <%= table_head %>
+    <% end %>
+  <% end %>
+  <%= table_body do %>
+    <%= render partial: 'solid_queue_dashboard/processes/table_row', collection: processes, as: :process %>
+  <% end %>
+<% end %>

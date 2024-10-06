@@ -1,45 +1,103 @@
-<h1 class="text-4xl font-bold tracking-tighter mb-8 sm:mb-16">
-  Job #<%= @job.id %>
-</h1>
+<div class="flex items-center justify-between gap-4">
+  <h1 class="text-4xl  flex items-center gap-2">
+    <%= job_circle(@job, class: "!size-4") %>
 
-<div class="grid grid-cols-2 gap-8">
-  <%= description_list do %>
-    <%= description_list_term "Queue" %>
-    <%= description_list_details job_queue_name(@job) %>
+    <span class="tracking-tighter font-bold">
+      Job #<%= @job.id %>
+    </span>
 
-    <%= description_list_term "Class" %>
-    <%= description_list_details do %>
-      <%= link_to @job.class_name, jobs_path(class_name: @job.class_name), class: "link" %>
-    <% end %>
+    <%= job_status_badge(@job, class: "ml-1.5") %>
+  </h1>
 
-    <%= description_list_term "Status" %>
-    <%= description_list_details job_status_badge(@job) %>
-  <% end %>
-
-  <%= description_list do %>
-    <%= description_list_term "Scheduled At" %>
-    <%= description_list_details @job.scheduled_at, data: { date: @job.scheduled_at.to_fs(:database) } %>
-
-    <% if @job_status == SolidQueueDashboard::Job::FINISHED %>
-      <%= description_list_term "Finished At" %>
-      <%= description_list_details do %>
-        <%= tag.span @job.finished_at, data: { date: @job.finished_at.to_fs(:database) } %>
-        <span class="text-sm text-muted-foreground font-normal">
-        (<%= distance_of_time_in_words(@job.scheduled_at, @job.finished_at) %> after scheduled,
-          <%= time_ago_in_words(@job.finished_at) %> ago)
-      </span>
+  <div class="flex gap-2">
+    <% if @job.failed? %>
+      <%= form_with url: retry_job_path(@job) do %>
+        <%= button "Retry", variant: "outline" %>
       <% end %>
     <% end %>
-
-    <% if @job_status == SolidQueueDashboard::Job::FAILED %>
-      <%= description_list_term "Failed At" %>
-      <%= description_list_details @job.failed_execution.created_at, data: { date: @job.failed_execution.created_at.to_fs(:database) } %>
-    <% end %>
-
-    <%= description_list_term "Created At" %>
-    <%= description_list_details @job.created_at, data: { date: @job.created_at.to_fs(:database) } %>
-  <% end %>
+  </div>
 </div>
+
+<%= card class: "mt-6" do %>
+  <%= card_content class: "pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16 md:gap-20" do %>
+    <div class="space-y-4">
+      <%= info_line do %>
+        <%= info_line_label "Queue" %>
+        <%= info_line_separator %>
+        <%= info_line_value @job.queue_name.titleize %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Class" %>
+        <%= info_line_separator %>
+        <%= info_line_value do %>
+          <%= link_to @job.class_name, jobs_path(class_name: @job.class_name), class: "link" %>
+        <% end %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Status" %>
+        <%= info_line_separator %>
+        <%= info_line_value job_status_badge(@job) %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Active Job ID" %>
+        <%= info_line_separator %>
+        <%= info_line_value @job.active_job_id %>
+      <% end %>
+    </div>
+
+    <div class="space-y-4">
+      <%= info_line do %>
+        <%= info_line_label "Created At" %>
+        <%= info_line_separator %>
+        <%= info_line_value @job.created_at, data: { date: @job.created_at.to_fs(:database) } %>
+      <% end %>
+
+      <%= info_line do %>
+        <%= info_line_label "Scheduled At" %>
+        <%= info_line_separator %>
+        <%= info_line_value @job.scheduled_at, data: { date: @job.scheduled_at.to_fs(:database) } %>
+      <% end %>
+
+      <% if @job.success? || @job.retried? %>
+        <%= info_line do %>
+          <%= info_line_label "Finished At" %>
+          <%= info_line_separator %>
+
+          <span class="text-sm text-muted-foreground font-normal">
+          <%= time_ago_in_words(@job.finished_at, include_seconds: true) %> ago
+        </span>
+
+          <%= info_line_value do %>
+            <%= tag.span @job.finished_at, data: { date: @job.finished_at.to_fs(:database) } %>
+          <% end %>
+        <% end %>
+
+        <%= info_line do %>
+          <%= info_line_label "Time Taken" %>
+          <%= info_line_separator %>
+          <%= info_line_value distance_of_time_in_words(@job.scheduled_at, @job.finished_at, include_seconds: true) %>
+        <% end %>
+      <% end %>
+
+      <% if @job.failed? %>
+        <%= info_line do %>
+          <%= info_line_label "Failed At" %>
+          <%= info_line_separator %>
+          <%= info_line_value @job.failed_execution.created_at, data: { date: @job.failed_execution.created_at.to_fs(:database) } %>
+        <% end %>
+
+        <%= info_line do %>
+          <%= info_line_label "Time Taken" %>
+          <%= info_line_separator %>
+          <%= info_line_value distance_of_time_in_words(@job.scheduled_at, @job.failed_execution.created_at, include_seconds: true) %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
 
 <% if @job.arguments["arguments"].present? %>
   <%= card class: "mt-8 overflow-hidden" do %>
@@ -53,11 +111,11 @@
   <% end %>
 <% end %>
 
-<% if SolidQueueDashboard::Job.failed?(@job) %>
+<% if @job.failed? %>
   <%= card class: "mt-8 overflow-hidden" do %>
     <%= card_content class: "pt-5 border-t-4 border-t-red-500" do %>
       <h4 class="text-lg font-bold">
-        <%= job_error_message(@job) %>
+        <%= @job.error_message %>
       </h4>
 
       <ul class="list-decimal marker:text-sm marker:text-muted-foreground mt-1 ml-8 space-y-1">
@@ -69,29 +127,15 @@
   <% end %>
 <% end %>
 
-<% if @execution_history.size > 1 %>
+<% if @job.execution_history.size > 1 %>
   <%= card class: "mt-8 overflow-hidden" do %>
-    <%= card_header class: "border-b border-t-4 border-t-zinc-500 flex !flex-row justify-between items-center" do %>
-      <div class="space-y-1.5">
-        <%= card_title "Execution History" %>
-        <%= card_description "The history of executions with same arguments (#{@execution_history.count} times)" %>
-      </div>
-
-      <%= button_link "View All",
-        href: jobs_path(class_name: @job.class_name, arguments_from_id: @job.id),
-        variant: "outline",
-        size: "sm"
-      %>
+    <%= card_header class: "border-b border-t-4 border-t-zinc-500" do %>
+      <%= card_title "Execution History" %>
+      <%= card_description "The history of executions of this exact job" %>
     <% end %>
 
     <%= card_content class: "!p-0" do %>
-      <%= render "table", jobs: @execution_history.limit(10) %>
-    <% end %>
-
-    <%= card_footer class: "border-t pt-6" do %>
-      <p class="text-sm text-muted-foreground">
-        Showing the last 10 executions of this job
-      </p>
+      <%= render "table", jobs: SolidQueueDashboard.decorate(@job.execution_history.order(id: :desc)), highlight_ids: [@job.id] %>
     <% end %>
   <% end %>
 <% end %>
@@ -100,8 +144,8 @@
   <%= card class: "mt-8 overflow-hidden" do %>
     <%= card_header class: "border-b border-t-4 border-t-zinc-500 flex !flex-row justify-between items-center" do %>
       <div class="space-y-1.5">
-        <%= card_title "Job History" %>
-        <%= card_description "The history of executions with any arguments (#{@job_history.count} times)" %>
+        <%= card_title "Similar Jobs" %>
+        <%= card_description "The history of executions of the same job class" %>
       </div>
 
       <%= button_link "View All",
@@ -112,7 +156,7 @@
     <% end %>
 
     <%= card_content class: "!p-0" do %>
-      <%= render "table", jobs: @job_history.limit(10) %>
+      <%= render "table", jobs: @job_history %>
     <% end %>
 
     <%= card_footer class: "border-t pt-6" do %>

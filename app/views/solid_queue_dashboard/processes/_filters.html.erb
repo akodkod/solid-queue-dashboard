@@ -1,0 +1,19 @@
+<%= form_with url: processes_path, method: :get, class: "flex flex-row gap-2" do |form| %>
+  <%= form.select :kind,
+    SolidQueueDashboard::Process::KINDS.map { |kind| [kind.titleize, kind] },
+    { include_blank: "All Kinds", selected: params[:kind] },
+    class: "select",
+    data: { auto_submit: true }
+  %>
+
+  <%= form.select :hostname,
+    @unique_hostnames.map { |hostname| [hostname, hostname] },
+    { include_blank: "All Hostnames", selected: params[:hostname] },
+    class: "select",
+    data: { auto_submit: true }
+  %>
+
+  <% if any_processes_filters? %>
+    <%= button_link "Clear Filters", href: processes_path, variant: "outline" %>
+  <% end %>
+<% end %>

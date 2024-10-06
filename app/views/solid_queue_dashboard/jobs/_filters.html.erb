@@ -1,0 +1,37 @@
+<%= form_with url: jobs_path, method: :get, class: "flex flex-row gap-2" do |form| %>
+  <% if @queue_names.size > 1 %>
+    <%= form.select :queue_name,
+      @queue_names.map { |name| [name.to_s.titleize, name] },
+      { include_blank: "All Queues", selected: params[:queue_name] },
+      class: "select",
+      data: { auto_submit: true }
+    %>
+  <% end %>
+  
+  <%= form.select :status,
+    SolidQueueDashboard::Job::STATUSES.map { |status| [status.to_s.titleize, status] },
+    { include_blank: "All Statuses", selected: params[:status] },
+    class: "select",
+    data: { auto_submit: true }
+  %>
+
+  <%= form.select :class_name,
+    @class_names.map { |name| [name.to_s.titleize, name] },
+    { include_blank: "All Jobs", selected: params[:class_name] },
+    class: "select",
+    data: { auto_submit: true }
+  %>
+
+  <% if any_jobs_filters? %>
+    <%= button_link "Clear Filters", href: jobs_path, variant: "outline" %>
+  <% end %>
+<% end %>
+
+<% if @arguments_from_job %>
+  <%= alert(variant: "yellow", class: "mt-4") do %>
+    <%= alert_description do %>
+      Showing jobs with the same arguments as <%= link_to "job ##{@arguments_from_job.id}", job_path(@arguments_from_job), class: "link font-medium" %>
+      (results might not be accurate)
+    <% end %>
+  <% end %>
+<% end %>

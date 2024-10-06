@@ -3,6 +3,6 @@ class RetryingJob < ApplicationJob
   retry_on StandardError, wait: 5.seconds, attempts: 3
 
   def perform(*args)
-    raise "I always fail"
+    raise "Sorry, I always fail but will retry 3 times"
   end
 end

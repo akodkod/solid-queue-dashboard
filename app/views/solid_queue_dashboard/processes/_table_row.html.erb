@@ -1,0 +1,30 @@
+<%= table_row data: { href: process_path(process) } do %>
+  <%= table_cell class: "pl-6 font-medium text-zinc-900 dark:text-zinc-100" do %>
+    <%= process_circle(process, class: "mr-1 -translate-y-px") %>
+    <%= process.id %>
+  <% end %>
+
+  <%= table_cell process_kind_badge(process) %>
+  <%= table_cell process.hostname %>
+  <%= table_cell process.pid %>
+
+  <%= table_cell do %>
+    <%= tag.span process.created_at, data: { date: process.created_at.to_fs(:database) } %><br />
+    <span class="text-xs text-muted-foreground">
+      <%= time_ago_in_words(process.created_at, include_seconds: true) %> ago
+    </span>
+  <% end %>
+
+  <%= table_cell title: process.last_heartbeat_at do %>
+    <%= tag.span process.last_heartbeat_at, data: { date: process.last_heartbeat_at.to_fs(:database) } %><br />
+    <span class="text-xs text-muted-foreground">
+      <%= time_ago_in_words(process.last_heartbeat_at, include_seconds: true) %> ago
+    </span>
+  <% end %>
+
+  <%= table_cell do %>
+    <% if process.dead? %>
+      <%= badge "Dead?", variant: "red" %>
+    <% end %>
+  <% end %>
+<% end %>
