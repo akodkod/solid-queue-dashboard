@@ -1,4 +1,4 @@
-# Solid Queue Dashboard
+# Solid Queue Dashboard <sup>BETA</sup>
 
 <p align="center">
   <a href="https://github.com/akodkod/solid-queue-dashboard#gh-light-mode-only">
@@ -21,6 +21,7 @@
 - 🔄 Retry jobs from the UI
 - 🚫 No dependencies
 - 🐒 No monkey patching
+- 💈 TailwindCSS
 
 ## Roadmap
 - 🏊‍♂️ Auto-pooling
