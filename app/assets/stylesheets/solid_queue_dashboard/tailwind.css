@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
   :root {
     --background: 0 0% 98%;
@@ -18,14 +16,14 @@
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
+    --accent: 240 4.8% 93.8%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --radius: 0.65rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -75,11 +73,482 @@
     @apply cursor-pointer;
   }
 
+  .link {
+    @apply underline hover:opacity-75;
+  }
+}
+
+@layer components {
+  /*
+    Label
+  */
+
+  .label {
+    @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  }
+
+  /*
+    Select
+  */
+
   .select {
     @apply form-select w-48 border border-input bg-white dark:bg-black text-foreground rounded-md h-10 px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
   }
 
-  .link {
-    @apply underline hover:opacity-75;
+  /*
+    Badge
+  */
+
+  .badge {
+    @apply border inline-flex items-center gap-x-1.5 rounded-md px-1.5 py-0.5 text-sm/5 font-medium sm:text-xs/5 forced-colors:outline;
+  }
+
+  .badge-primary {
+    @apply border-transparent bg-primary text-primary-foreground hover:bg-primary/80;
+  }
+
+  .badge-secondary {
+    @apply border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .badge-destructive {
+    @apply border-transparent bg-destructive/15 text-destructive dark:bg-destructive/10 dark:text-destructive-foreground;
+  }
+
+  .badge-outline {
+    @apply text-foreground;
+  }
+
+  .badge-red {
+    @apply border-transparent bg-red-500/15 text-red-700 dark:bg-red-500/10 dark:text-red-400;
+  }
+
+  .badge-orange {
+    @apply border-transparent bg-orange-500/15 text-orange-700 dark:bg-orange-500/10 dark:text-orange-400;
+  }
+
+  .badge-amber {
+    @apply border-transparent bg-amber-400/20 text-amber-700 dark:bg-amber-400/10 dark:text-amber-400;
+  }
+
+  .badge-yellow {
+    @apply border-transparent bg-yellow-400/20 text-yellow-700 dark:bg-yellow-400/10 dark:text-yellow-300;
+  }
+
+  .badge-lime {
+    @apply border-transparent bg-lime-400/20 text-lime-700 dark:bg-lime-400/10 dark:text-lime-300;
+  }
+
+  .badge-green {
+    @apply border-transparent bg-green-500/15 text-green-700 dark:bg-green-500/10 dark:text-green-400;
+  }
+
+  .badge-emerald {
+    @apply border-transparent bg-emerald-500/15 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400;
+  }
+
+  .badge-teal {
+    @apply border-transparent bg-teal-500/15 text-teal-700 dark:bg-teal-500/10 dark:text-teal-300;
+  }
+
+  .badge-cyan {
+    @apply border-transparent bg-cyan-400/20 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-300;
+  }
+
+  .badge-sky {
+    @apply border-transparent bg-sky-500/15 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300;
+  }
+
+  .badge-blue {
+    @apply border-transparent bg-blue-500/15 text-blue-700 dark:text-blue-400;
+  }
+
+  .badge-indigo {
+    @apply border-transparent bg-indigo-500/15 text-indigo-700 dark:text-indigo-400;
+  }
+
+  .badge-violet {
+    @apply border-transparent bg-violet-500/15 text-violet-700 dark:text-violet-400;
+  }
+
+  .badge-purple {
+    @apply border-transparent bg-purple-500/15 text-purple-700 dark:text-purple-400;
+  }
+
+  .badge-fuchsia {
+    @apply border-transparent bg-fuchsia-400/15 text-fuchsia-700 dark:bg-fuchsia-400/10 dark:text-fuchsia-400;
+  }
+
+  .badge-pink {
+    @apply border-transparent bg-pink-400/15 text-pink-700 dark:bg-pink-400/10 dark:text-pink-400;
+  }
+
+  .badge-rose {
+    @apply border-transparent bg-rose-400/15 text-rose-700 dark:bg-rose-400/10 dark:text-rose-400;
+  }
+
+  .badge-zinc {
+    @apply border-transparent bg-zinc-600/10 text-zinc-700 dark:bg-white/5 dark:text-zinc-400;
+  }
+
+  /*
+    Circle
+  */
+
+  .circle {
+    @apply size-2 inline-flex items-center justify-center rounded-full;
+  }
+
+  .circle-primary {
+    @apply bg-primary;
+  }
+
+  .circle-secondary {
+    @apply bg-secondary;
+  }
+
+  .circle-destructive {
+    @apply bg-destructive;
+  }
+
+  .circle-outline {
+    @apply border border-current bg-background;
+  }
+
+  .circle-red {
+    @apply bg-red-500;
+  }
+
+  .circle-orange {
+    @apply bg-orange-500;
+  }
+
+  .circle-amber {
+    @apply bg-amber-400;
+  }
+
+  .circle-yellow {
+    @apply bg-yellow-400;
+  }
+
+  .circle-lime {
+    @apply bg-lime-400;
+  }
+
+  .circle-green {
+    @apply bg-green-500;
+  }
+
+  .circle-emerald {
+    @apply bg-emerald-500;
+  }
+
+  .circle-teal {
+    @apply bg-teal-500;
+  }
+
+  .circle-cyan {
+    @apply bg-cyan-400;
+  }
+
+  .circle-sky {
+    @apply bg-sky-500;
+  }
+
+  .circle-blue {
+    @apply bg-blue-500;
+  }
+
+  .circle-indigo {
+    @apply bg-indigo-500;
+  }
+
+  .circle-violet {
+    @apply bg-violet-500;
+  }
+
+  .circle-purple {
+    @apply bg-purple-500;
+  }
+
+  .circle-fuchsia {
+    @apply bg-fuchsia-400;
+  }
+
+  .circle-pink {
+    @apply bg-pink-400;
+  }
+
+  .circle-rose {
+    @apply bg-rose-400;
+  }
+
+  .circle-zinc {
+    @apply bg-zinc-600;
+  }
+
+  /*
+    Alert
+  */
+
+  .alert {
+    @apply relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground;
+  }
+
+  .alert-default {
+    @apply bg-background text-foreground;
+  }
+
+  .alert-destructive {
+    @apply border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive;
+  }
+
+  .alert-red {
+    @apply border-red-500/50 text-red-700 dark:border-red-500 dark:text-red-300 [&>svg]:text-red-500;
+  }
+
+  .alert-green {
+    @apply border-green-500/50 text-green-700 dark:border-green-500 dark:text-green-300 [&>svg]:text-green-500;
+  }
+
+  .alert-yellow {
+    @apply border-yellow-500/50 text-yellow-700 dark:border-yellow-500 dark:text-yellow-300 [&>svg]:text-yellow-500;
+  }
+
+  .alert-blue {
+    @apply border-blue-500/50 text-blue-700 dark:border-blue-500 dark:text-blue-300 [&>svg]:text-blue-500;
+  }
+
+  .alert-purple {
+    @apply border-purple-500/50 text-purple-700 dark:border-purple-500 dark:text-purple-300 [&>svg]:text-purple-500;
+  }
+
+  .alert-pink {
+    @apply border-pink-500/50 text-pink-700 dark:border-pink-500 dark:text-pink-300 [&>svg]:text-pink-500;
+  }
+
+  .alert-title {
+    @apply mb-1 font-medium leading-none tracking-tight;
+  }
+
+  .alert-description {
+    @apply text-sm [&_p]:leading-relaxed;
+  }
+
+  /*
+    Button
+  */
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-default {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
+  }
+
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-link {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  .btn-xs {
+    @apply h-7 rounded-md px-2 gap-1;
+  }
+
+  .btn-sm {
+    @apply h-9 rounded-md px-3 gap-1.5;
+  }
+
+  .btn-md {
+    @apply h-10 px-4 py-2 gap-1.5;
+  }
+
+  .btn-lg {
+    @apply h-11 rounded-md px-8 gap-2;
+  }
+
+  .btn-icon {
+    @apply h-10 w-10;
+  }
+
+  /*
+    Info Line
+  */
+
+  .info-line {
+    @apply flex items-center gap-4;
+  }
+
+  .info-line-label {
+    @apply text-zinc-500 whitespace-nowrap;
+  }
+
+  .info-line-separator {
+    @apply h-px flex-1 bg-zinc-950/10 dark:border-white/10 translate-y-px;
+  }
+
+  .info-line-value {
+    @apply font-medium text-right text-zinc-950 dark:text-white;
+  }
+
+  /*
+    Card
+  */
+
+  .card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  }
+
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+
+  .card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
+
+  .card-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .card-content {
+    @apply p-6 pt-0;
+  }
+
+  .card-footer {
+    @apply flex items-center p-6 pt-0;
+  }
+
+  /*
+    Navbar
+  */
+
+  .navbar {
+    @apply flex items-center gap-4 bg-background py-4;
+  }
+
+  .navbar-section {
+    @apply flex gap-1.5;
+  }
+
+  .navbar-item {
+    @apply inline-flex items-center rounded-md justify-center px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  .navbar-item-default {
+    @apply text-foreground hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .navbar-item-current {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /*
+    Table
+  */
+
+  .table-wrapper {
+    @apply relative w-full overflow-auto;
+  }
+
+  .table {
+    @apply w-full caption-bottom text-sm;
+  }
+
+  .table-header {
+    @apply [&_tr]:border-b;
+  }
+
+  .table-body {
+    @apply [&_tr:last-child]:border-0;
+  }
+
+  .table-footer {
+    @apply border-t bg-muted/50 font-medium [&>tr]:last:border-b-0;
+  }
+
+  .table-row {
+    @apply border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted;
+  }
+
+  .table-head {
+    @apply h-12 px-4 text-left align-middle font-medium text-muted-foreground whitespace-nowrap [&:has([role=checkbox])]:pr-0;
+  }
+
+  .table-cell {
+    @apply p-4 align-middle [&:has([role=checkbox])]:pr-0;
+  }
+
+  .table-caption {
+    @apply mt-4 text-sm text-muted-foreground;
+  }
+
+  /*
+    Pagination
+  */
+
+  .pagination {
+    @apply flex justify-center;
+  }
+
+  .pagination-content {
+    @apply flex flex-row items-center gap-1;
+  }
+
+  .pagination-item {
+    @apply inline-block;
+  }
+
+  .pagination-link {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .pagination-link-active {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .pagination-link-inactive {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .pagination-link-icon {
+    @apply h-9 w-9;
+  }
+
+  .pagination-link-default {
+    @apply h-10 px-4 py-2;
+  }
+
+  .pagination-previous,
+  .pagination-next {
+    @apply h-10 px-4 py-2 gap-1;
+  }
+
+  .pagination-previous {
+    @apply pl-2.5;
+  }
+
+  .pagination-next {
+    @apply pr-2.5;
+  }
+
+  .pagination-ellipsis {
+    @apply flex h-9 w-9 items-center justify-center;
   }
 }

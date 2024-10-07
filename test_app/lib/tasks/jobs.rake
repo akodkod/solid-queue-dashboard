@@ -15,10 +15,10 @@ namespace :jobs do
 
     # Random arguments
     arguments = [
-      [{ "key" => "value", "another_key" => false, truth: 42 }],
-      ["hello_world", true, nil],
-      [451],
-      [Time.now.utc]
+      [ { "key" => "value", "another_key" => false, truth: 42 } ],
+      [ "hello_world", true, nil ],
+      [ 451 ],
+      [ Time.now.utc ]
     ]
 
     100.times do

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Handle clickable rows
-  document.body.addEventListener('mousedown', function(event) {
+  document.body.addEventListener('mouseup', function(event) {
     const target = event.target.closest('[data-href]');
 
     if (target) {

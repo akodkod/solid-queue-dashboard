@@ -1,56 +1,94 @@
-# SolidQueueDashboard
+# Solid Queue Dashboard
 
-TODO: Delete this and the text below, and describe your gem
+<p align="center">
+  <a href="https://github.com/akodkod/solid-queue-dashboard#gh-light-mode-only">
+    <img src="https://github.com/user-attachments/assets/90cb68cf-73d9-41bf-b9d5-93da7c36f204" alt="Solid Queue Dashboard Light Mode">
+  </a>
+  <a href="https://github.com/akodkod/solid-queue-dashboard#gh-dark-mode-only">
+    <img src="https://github.com/user-attachments/assets/ea089277-67fc-4bc9-91d8-2e3e7349b0c9" alt="Solid Queue Dashboard Dark Mode">
+  </a>
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/solid_queue_dashboard`. To experiment with that code, run `bin/console` for an interactive prompt.
+  _👋 I'm available for hire → [kodkod.me](https://kodkod.me)_
+</p>
+
+## Features
+- 🎨 Beautiful UI
+- 🧠 Smart status detection
+- 📊 Track failure rates
+- 💀 Find dead processes
+- 📜 View execution history
+- 🔍 Filter options
+- 🔄 Retry jobs from the UI
+- 🚫 No dependencies
+- 🐒 No monkey patching
+
+## Roadmap
+- 🏊‍♂️ Auto-pooling
+- 📈 Add charts
+- 🚀 Manually trigger jobs
+- ⏹️ Cancel long jobs (if possible)
+- 📊 More statistics and insights
+- 🔎 Search feature
+- 🔢 Sorting options
+- 🏗️ Add tests
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
-Install the gem and add to the application's Gemfile by executing:
+To install, run this command in your terminal:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add solid_queue_dashboard
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Or add this line to your `Gemfile`:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem "solid_queue_dashboard", "~> 0.1.0"
 ```
 
-## Usage
+Add this line to `routes.rb`:
 
-TODO: Write usage instructions here
+```ruby
+mount SolidQueueDashboard::Engine, at: "/solid-queue"
+```
 
-## Development
+**IMPORTANT: Protect your SolidQueueDashboard with authentication to prevent unauthorized access.**
 
-## Development
+For example, if using Devise:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests.
-
-To install this gem onto your local machine, run `bundle exec rake install`.
-
-### Testing with the sample Rails application
-
-This gem includes a sample Rails application for testing purposes. To set it up:
-
-1. Run `bin/setup-test-app` to set up the test Rails application.
-2. cd into the `test_app` directory: `cd test_app`
-3. Start the Rails server: `bin/rails server`
-4. Visit `http://localhost:3000/solid-queue-dashboard` in your browser to see the dashboard.
-
-To create sample jobs for testing, run:
+```ruby
+Rails.application.routes.draw do
+  authenticate :current_admin do
+    mount SolidQueueDashboard::Engine, at: "/solid-queue"
+  end
+end
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/solid_queue_dashboard. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/solid_queue_dashboard/blob/main/CODE_OF_CONDUCT.md).
+After cloning the repo, run:
+
+```
+./bin/setup
+./bin/setup-test-app
+```
+
+To run the test application:
+
+```
+gem install foreman
+./bin/dev
+```
+
+To generate dummy data:
+
+```
+cd test_app
+rails jobs:generate_dummy_data
+./bin/jobs
+```
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This gem is open source under the [MIT License](http://opensource.org/licenses/MIT).
 
-## Code of Conduct
-
-Everyone interacting in the SolidQueueDashboard project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/solid_queue_dashboard/blob/main/CODE_OF_CONDUCT.md).

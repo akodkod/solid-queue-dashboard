@@ -1,0 +1,19 @@
+<% if total_pages > 1 %>
+  <nav class="pagination" role="navigation" aria-label="pagination">
+    <div class="pagination-content">
+      <%= link_to raw('&laquo; Previous'), url_for(page: current_page - 1, per_page: per_page), class: "pagination-link pagination-previous #{current_page > 1 ? 'pagination-link-active' : 'pagination-link-inactive'}", rel: "prev" unless current_page == 1 %>
+
+      <% page_range(current_page, total_pages).each do |page| %>
+        <% if page.is_a?(Integer) %>
+          <span class="pagination-item">
+            <%= link_to page, url_for(page: page, per_page: per_page), class: "pagination-link pagination-link-default #{page == current_page ? 'pagination-link-active' : 'pagination-link-inactive'}" %>
+          </span>
+        <% else %>
+          <span class="pagination-ellipsis">&hellip;</span>
+        <% end %>
+      <% end %>
+
+      <%= link_to raw('Next &raquo;'), url_for(page: current_page + 1, per_page: per_page), class: "pagination-link pagination-next #{current_page < total_pages ? 'pagination-link-active' : 'pagination-link-inactive'}", rel: "next" unless current_page == total_pages %>
+    </div>
+  </nav>
+<% end %>

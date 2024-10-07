@@ -1,19 +1,64 @@
-<%= form_with url: processes_path, method: :get, class: "flex flex-row gap-2" do |form| %>
-  <%= form.select :kind,
-    SolidQueueDashboard::Process::KINDS.map { |kind| [kind.titleize, kind] },
-    { include_blank: "All Kinds", selected: params[:kind] },
-    class: "select",
-    data: { auto_submit: true }
-  %>
+<%= form_with url: processes_path, method: :get, class: "space-y-3" do |form| %>
+  <% if @process_kinds.any? %>
+    <div>
+      <label class="label">Kind</label>
+      <div class="flex flex-wrap gap-1 mt-1">
+        <% @process_kinds.each do |kind| %>
+          <%= button_tag type: :submit,
+            name: :kind,
+            value: kind,
+            class: "px-2 badge #{params[:kind] == kind.to_s ? 'badge-primary' : 'badge-outline'}" do
+          %>
+            <%= process_kind_circle(kind) %>
+            <%= kind.to_s.titleize %>
+            <span class="opacity-50 -ml-0.5">
+              <%= SolidQueue::Process.where(kind:).count %>
+            </span>
+          <% end %>
+        <% end %>
 
-  <%= form.select :hostname,
-    @unique_hostnames.map { |hostname| [hostname, hostname] },
-    { include_blank: "All Hostnames", selected: params[:hostname] },
-    class: "select",
-    data: { auto_submit: true }
-  %>
+        <% if params[:kind].present? %>
+          <%= button_tag type: :submit, name: :kind, value: nil, class: "badge badge-destructive gap-1" do %>
+            <%= icon_x class: "size-3.5 text-red-500" %>
+            Clear
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @process_hostnames.any? %>
+    <div>
+      <label class="label">Hostname</label>
+      <div class="flex flex-wrap gap-1 mt-1">
+        <% @process_hostnames.each do |hostname| %>
+          <%= button_tag type: :submit,
+            name: :hostname,
+            value: hostname,
+            class: "px-2 badge #{params[:hostname] == hostname ? 'badge-primary' : 'badge-outline'}" do
+          %>
+            <%= hostname %>
+            <span class="opacity-50 -ml-0.5">
+              <%= SolidQueue::Process.where(hostname:).count %>
+            </span>
+          <% end %>
+        <% end %>
+
+        <% if params[:hostname].present? %>
+          <%= button_tag type: :submit, name: :hostname, value: nil, class: "badge badge-destructive gap-1" do %>
+            <%= icon_x class: "size-3.5 text-red-500" %>
+            Clear
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
   <% if any_processes_filters? %>
-    <%= button_link "Clear Filters", href: processes_path, variant: "outline" %>
+    <hr>
+    <%= link_to processes_path, class: "btn btn-outline btn-xs" do %>
+      <%= icon_x class: "size-4 text-red-500" %>
+      Clear All Filters
+    <% end %>
   <% end %>
 <% end %>

@@ -1,51 +1,82 @@
 <% highlight = local_assigns[:highlight] || local_assigns[:highlight_ids]&.include?(job.id) %>
 
-<%= table_row class: highlight ? "bg-primary/7.5 hover:bg-primary/10" : "", data: { href: job_path(job) } do %>
-  <%= table_cell class: "font-medium text-zinc-900 dark:text-zinc-100" do %>
-    <%= job_circle(job, class: "mr-1 -translate-y-px") %>
+<tr class="table-row <%= highlight ? "bg-primary/7.5 hover:bg-primary/10" : "" %>" data-href="<%= job_path(job) %>">
+  <td class="table-cell pl-6 font-medium text-zinc-900 dark:text-zinc-100 whitespace-nowrap">
+    <span class="mr-1 <%= job_status_circle_class(job.status) %>"></span>
     <%= job.id %>
 
     <% if job.arguments["executions"] > 0 %>
       <span class="text-xs text-muted-foreground">
-        (x<%= job.arguments["executions"] +1 %>)
+        (x<%= job.arguments["executions"] + 1 %>)
       </span>
     <% end %>
-  <% end %>
+  </td>
 
-  <%= table_cell job.queue_name.titleize %>
+  <td class="table-cell">
+    <%= job_status_badge(job.status) %>
+  </td>
 
-  <%= table_cell do %>
-    <span class="font-medium"><%= job.class_name %></span><br />
-    <% if job.arguments["arguments"].present? %>
-      <p class="text-xs text-muted-foreground truncate">
-        <%= truncate(job.arguments["arguments"].map(&:to_json).to_sentence, length: 50) %>
-      </p>
+  <td class="table-cell">
+    <% if job.class_name == SolidQueueDashboard::Job::COMMAND_CLASS_NAME %>
+      <span class="font-medium">
+        <%= truncate(job.arguments["arguments"][0], length: 50) %>
+      </span>
+      <br>
+      <span class="text-xs text-muted-foreground">
+        Recurring Command
+      </span>
+    <% else %>
+      <p class="font-medium"><%= job.class_name %></p>
+
+      <% if job.arguments["arguments"].present? %>
+        <p class="mt-0.5">
+          <% job.arguments["arguments"].each do |argument| %>
+            <span class="badge badge-zinc"><%= truncate(JSON.pretty_generate(argument), length: 80) %></span>
+          <% end %>
+        </p>
+      <% end %>
     <% end %>
-  <% end %>
+  </td>
 
-  <%= table_cell job_status_badge(job) %>
+  <td class="table-cell">
+    <%= job.queue_name.titleize %>
+  </td>
 
-  <%= table_cell do %>
-    <%= tag.span job.scheduled_at, data: { date: true }, class: "font-medium" %><br />
+  <td class="table-cell">
+    <%= tag.span job.scheduled_at, data: { date: true }, class: "font-medium" %>
+    <br />
     <span class="text-xs text-muted-foreground">
       <%= time_ago_in_words(job.scheduled_at, include_seconds: true) %> ago
     </span>
-  <% end %>
+  </td>
 
-  <%= table_cell do %>
+  <td class="table-cell">
     <% if job.success? || job.retried? %>
       <p class="text-sm text-muted-foreground">
         <%= job.retried? ? "Failed" : "Finished" %> at <strong class="font-medium text-foreground" data-date="<%= job.finished_at.to_fs(:database) %>"><%= job.finished_at %></strong><br />
         <span class="text-xs"><%= time_ago_in_words(job.scheduled_at, include_seconds: true) %> ago</span>
       </p>
     <% elsif job.failed? %>
-      <p class="text-sm text-balance text-red-700 dark:text-red-500 font-medium">
-        <%= job.error_message %>
-      </p>
+      <div class="flex items-center justify-between">
+        <p class="text-sm text-balance font-medium">
+          <%= icon_triangle_alert class: "inline-block size-4 text-red-600 dark:text-red-500 -translate-y-px mr-0.5" %>
+          <%= job.error_message %>
+        </p>
+
+        <%= form_with url: retry_job_path(job), method: :post do %>
+          <button
+            type="submit"
+            class="btn btn-icon btn-outline"
+            title="Retry"
+          >
+            <%= icon_refresh_cw class: "size-4 text-amber-500" %>
+          </button>
+        <% end %>
+      </div>
     <% elsif job.pending? %>
       <p class="text-sm text-muted-foreground">
         Pending for <strong class="font-medium text-foreground"><%= time_ago_in_words(job.scheduled_at, include_seconds: true) %></strong>
       </p>
     <% end %>
-  <% end %>
-<% end %>
+  </td>
+</tr>

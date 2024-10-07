@@ -1,30 +1,32 @@
-<%= table_row data: { href: process_path(process) } do %>
-  <%= table_cell class: "pl-6 font-medium text-zinc-900 dark:text-zinc-100" do %>
-    <%= process_circle(process, class: "mr-1 -translate-y-px") %>
+<tr class="table-row" data-href="<%= process_path(process) %>">
+  <td class="table-cell pl-6 font-medium text-zinc-900 dark:text-zinc-100">
     <%= process.id %>
-  <% end %>
+  </td>
 
-  <%= table_cell process_kind_badge(process) %>
-  <%= table_cell process.hostname %>
-  <%= table_cell process.pid %>
+  <td class="table-cell">
+    <%= process_kind_badge(process.kind) %>
+  </td>
 
-  <%= table_cell do %>
-    <%= tag.span process.created_at.to_fs(:database), data: { date: true } %><br />
+  <td class="table-cell"><%= process.hostname %></td>
+  <td class="table-cell"><%= process.pid %></td>
+
+  <td class="table-cell">
+    <span data-date="true"><%= process.created_at.to_fs(:database) %></span><br />
     <span class="text-xs text-muted-foreground">
       <%= time_ago_in_words(process.created_at, include_seconds: true) %> ago
     </span>
-  <% end %>
+  </td>
 
-  <%= table_cell title: process.last_heartbeat_at do %>
-    <%= tag.span process.last_heartbeat_at.to_fs(:database), data: { date: true } %><br />
+  <td class="table-cell" title="<%= process.last_heartbeat_at %>">
+    <span data-date="true"><%= process.last_heartbeat_at.to_fs(:database) %></span><br />
     <span class="text-xs text-muted-foreground">
       <%= time_ago_in_words(process.last_heartbeat_at, include_seconds: true) %> ago
     </span>
-  <% end %>
+  </td>
 
-  <%= table_cell do %>
+  <td class="table-cell">
     <% if process.dead? %>
-      <%= badge "Dead?", variant: "red" %>
+      <span class="badge badge-red">Dead?</span>
     <% end %>
-  <% end %>
-<% end %>
+  </td>
+</tr>

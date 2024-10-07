@@ -1,75 +1,79 @@
-<h1 class="text-4xl  flex items-center gap-2">
-  <%= process_circle(@process, class: "!size-4") %>
+<h1 class="text-4xl flex items-center gap-2">
+  <%= process_kind_circle(@process.kind, class: "!size-4") %>
 
   <span class="tracking-tighter font-bold">
     Process #<%= @process.id %>
   </span>
 
-  <%= process_kind_badge(@process, class: "ml-1.5") %>
-
   <% if @process.dead? %>
-    <%= badge "Dead?", variant: "red" %>
+    <span class="badge badge-red">Dead?</span>
   <% end %>
 </h1>
 
-<%= card class: "mt-6" do %>
-  <%= card_content class: "pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16" do %>
+<div class="card mt-6">
+  <div class="card-content pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16">
     <div class="space-y-4">
-      <%= info_line do %>
-        <%= info_line_label "Kind" %>
-        <%= info_line_separator %>
-        <%= info_line_value process_kind_badge(@process) %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Kind</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= process_kind_badge(@process.kind) %></span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Hostname" %>
-        <%= info_line_separator %>
-        <%= info_line_value @process.hostname %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Hostname</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= @process.hostname %></span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "PID" %>
-        <%= info_line_separator %>
-        <%= info_line_value @process.pid %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">PID</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= @process.pid %></span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Name" %>
-        <%= info_line_separator %>
-        <%= info_line_value @process.name %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Name</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= @process.name %></span>
+      </div>
     </div>
 
     <div class="space-y-4">
-      <%= info_line do %>
-        <%= info_line_label "Last Heartbeat" %>
-        <%= info_line_separator %>
-        <%= info_line_value @process.last_heartbeat_at.to_fs(:database), data: { date: true } %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Last Heartbeat</span>
+        <span class="info-line-separator"></span>
+        <span class="text-sm text-muted-foreground font-normal">
+          <%= time_ago_in_words(@process.last_heartbeat_at, include_seconds: true) %> ago
+        </span>
+        <span class="info-line-value" data-date><%= @process.last_heartbeat_at.to_fs(:database) %></span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Created At" %>
-        <%= info_line_separator %>
-        <%= info_line_value @process.created_at.to_fs(:database), data: { date: true } %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Created At</span>
+        <span class="info-line-separator"></span>
+        <span class="text-sm text-muted-foreground font-normal">
+          <%= time_ago_in_words(@process.created_at, include_seconds: true) %> ago
+        </span>
+        <span class="info-line-value" data-date><%= @process.created_at.to_fs(:database) %></span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Time Running" %>
-        <%= info_line_separator %>
-        <%= info_line_value distance_of_time_in_words(@process.created_at, Time.current, include_seconds: true) %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Time Running</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= distance_of_time_in_words(@process.created_at, Time.current, include_seconds: true) %></span>
+      </div>
     </div>
-  <% end %>
-<% end %>
+  </div>
+</div>
 
 <% if @process.metadata.present? %>
-  <%= card class: "mt-8 overflow-hidden" do %>
-    <%= card_header class: "border-b border-t-4 border-t-blue-500" do %>
-      <%= card_title "Metadata" %>
-      <%= card_description "Additional information about this process" %>
-    <% end %>
-    <%= card_content class: "pt-6" do %>
+  <div class="card mt-8 overflow-hidden">
+    <div class="card-header border-b border-t-4 border-t-blue-500 dark:border-t-blue-600">
+      <h2 class="card-title">Metadata</h2>
+      <p class="card-description">Additional information about this process</p>
+    </div>
+    <div class="card-content pt-6">
       <pre><%= JSON.pretty_generate(@process.metadata) %></pre>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 <% end %>

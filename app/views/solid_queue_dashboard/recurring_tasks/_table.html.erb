@@ -1,16 +1,19 @@
-<%= table do %>
-  <%= table_header do %>
-    <%= table_row do %>
-      <%= table_head "ID", class: "pl-6" %>
-      <%= table_head "Type" %>
-      <%= table_head %>
-      <%= table_head "Schedule" %>
-      <%= table_head "Queue Name" %>
-      <%= table_head "Priority" %>
-      <%= table_head "Key" %>
-    <% end %>
-  <% end %>
-  <%= table_body do %>
-    <%= render partial: 'solid_queue_dashboard/recurring_tasks/table_row', collection: recurring_tasks, as: :recurring_task %>
-  <% end %>
-<% end %>
+<div class="table-wrapper">
+  <table class="table">
+    <thead class="table-header">
+      <tr class="table-row">
+        <th class="table-head pl-6">ID</th>
+        <th class="table-head">Type</th>
+        <th class="table-head"></th>
+        <th class="table-head">Schedule</th>
+        <th class="table-head">Queue Name</th>
+        <th class="table-head">Priority</th>
+        <th class="table-head">Key</th>
+        <th class="table-head"></th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      <%= render partial: 'solid_queue_dashboard/recurring_tasks/table_row', collection: recurring_tasks, as: :recurring_task %>
+    </tbody>
+  </table>
+</div>

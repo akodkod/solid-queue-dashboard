@@ -1,19 +1,31 @@
-<%= table_row data: { href: recurring_task_path(recurring_task) } do %>
-  <%= table_cell class: "pl-6 font-medium text-zinc-900 dark:text-zinc-100" do %>
-    <%= recurring_task_circle(recurring_task, class: "mr-1 -translate-y-px") %>
+<tr class="table-row" data-href="<%= recurring_task_path(recurring_task) %>">
+  <td class="table-cell pl-6 font-medium text-zinc-900 dark:text-zinc-100">
     <%= recurring_task.id %>
-  <% end %>
+  </td>
 
-  <%= table_cell recurring_task_type_badge(recurring_task) %>
+  <td class="table-cell">
+    <%= recurring_task_type_badge(recurring_task.type) %>
+  </td>
 
-  <%= table_cell do %>
+  <td class="table-cell">
     <span class="font-medium">
       <%= recurring_task.class_name || recurring_task.command %>
     </span>
-  <% end %>
+  </td>
 
-  <%= table_cell recurring_task.schedule %>
-  <%= table_cell recurring_task.queue_name&.titleize || empty_value %>
-  <%= table_cell recurring_task.priority || empty_value %>
-  <%= table_cell recurring_task.key %>
-<% end %>
+  <td class="table-cell"><%= recurring_task.schedule %></td>
+  <td class="table-cell"><%= recurring_task.queue_name&.titleize || empty_value %></td>
+  <td class="table-cell"><%= recurring_task.priority || empty_value %></td>
+  <td class="table-cell"><%= recurring_task.key %></td>
+  <td class="table-cell">
+    <%= form_with url: enqueue_recurring_task_path(recurring_task), method: :post do %>
+      <button
+        type="submit"
+        class="btn btn-md btn-outline"
+      >
+        <%= icon_play class: "size-4 text-amber-500 mr-1" %>
+        Enqueue Now
+      </button>
+    <% end %>
+  </td>
+</tr>

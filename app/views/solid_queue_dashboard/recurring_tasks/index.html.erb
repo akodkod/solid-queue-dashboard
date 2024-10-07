@@ -1,10 +1,13 @@
-<%= card do %>
-  <%= card_header class: "border-b" do %>
-    <%= card_title "Recurring Tasks" %>
-    <%= card_description "List of recurring tasks" %>
-  <% end %>
+<div class="card">
+  <div class="card-header border-b">
+    <h2 class="card-title">Recurring Tasks</h2>
 
-  <%= card_content class: "!p-0" do %>
+    <div class="!mt-4">
+      <%= render "solid_queue_dashboard/recurring_tasks/filters" %>
+    </div>
+  </div>
+
+  <div class="card-content !p-0">
     <% if @recurring_tasks.any? %>
       <%= render "solid_queue_dashboard/recurring_tasks/table", recurring_tasks: @recurring_tasks %>
     <% else %>
@@ -14,5 +17,5 @@
         </p>
       </div>
     <% end %>
-  <% end %>
-<% end %>
+  </div>
+</div>

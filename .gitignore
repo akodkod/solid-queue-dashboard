@@ -12,4 +12,5 @@
 /test_app/storage/*.sqlite3*
 /test_app/log/*.log
 /test_app/tmp/
+/*.gem
 

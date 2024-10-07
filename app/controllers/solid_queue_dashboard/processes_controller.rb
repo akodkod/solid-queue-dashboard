@@ -4,8 +4,8 @@ module SolidQueueDashboard
     before_action :set_process, only: [ :show ]
 
     def index
-      @unique_kinds = SolidQueueDashboard::Process::KINDS
-      @unique_hostnames = SolidQueue::Process.distinct.pluck(:hostname)
+      @process_kinds = SolidQueue::Process.distinct.pluck(:kind)
+      @process_hostnames = SolidQueue::Process.distinct.pluck(:hostname)
     end
 
     def show

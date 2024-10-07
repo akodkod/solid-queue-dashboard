@@ -1,0 +1,26 @@
+<%= form_with url: recurring_tasks_path, method: :get, class: "space-y-3" do |form| %>
+  <div>
+    <div class="flex flex-wrap gap-1 mt-1">
+      <% SolidQueueDashboard::RecurringTask::TYPES.each do |type| %>
+        <%= button_tag type: :submit,
+          name: :type,
+          value: type,
+          class: "px-2 badge #{params[:type] == type.to_s ? 'badge-primary' : 'badge-outline'}" do
+        %>
+          <%= recurring_task_circle(type) %>
+          <%= type.to_s.titleize %>
+          <span class="opacity-50 -ml-0.5">
+            <%= SolidQueueDashboard.decorate(SolidQueue::RecurringTask.all).with_type(type).count %>
+          </span>
+        <% end %>
+      <% end %>
+
+      <% if params[:type].present? %>
+        <%= button_tag type: :submit, name: :type, value: nil, class: "badge badge-destructive gap-1" do %>
+          <%= icon_x class: "size-3.5 text-red-500" %>
+          Clear
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

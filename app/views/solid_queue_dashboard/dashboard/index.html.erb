@@ -1,40 +1,41 @@
-<h1 class="text-4xl font-bold tracking-tight">Dashboard</h1>
-
-<div class="grid grid-cols-5 gap-4 mt-8">
+<div class="grid grid-cols-5 gap-4">
   <% SolidQueueDashboard::Job::STATUSES.each do |status| %>
-    <%= card data: { href: jobs_path(status:) } do %>
-      <%= card_content class: "pt-5" do %>
+    <div class="card" data-href="<%= jobs_path(status:) %>">
+      <div class="card-content pt-5">
         <h4 class="font-medium">
           <%= status.to_s.titleize %>
+          <span class="ml-0.5 -translate-y-px circle <%= job_status_circle_class(status) %>"></span>
         </h4>
         <p class="text-4xl font-bold mt-1 text-black dark:text-white">
           <%= @jobs.with_status(status).count %>
         </p>
-      <% end %>
-    <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
 
-<%= card class: "mt-4" do %>
-  <%= card_header class: "border-b" do %>
-    <%= card_title "Failure Rate" %>
-  <% end %>
-  <%= card_content class: "!p-0" do %>
-    <%= table do %>
-      <%= table_header do %>
-        <%= table_row do %>
-          <%= table_head "Job" %>
-          <%= table_head "Failure Rate" %>
-        <% end %>
-      <% end %>
-      <%= table_body do %>
-        <% @job_class_names.each do |class_name| %>
-          <%= table_row data: { href: jobs_path(class_name:, status: :failed) } do %>
-            <%= table_cell class_name.titleize, class: "font-medium" %>
-            <%= table_cell format_failure_rate(SolidQueueDashboard.decorate(SolidQueue::Job.where(class_name:)).failure_rate, class: "font-medium") %>
+<div class="card mt-4">
+  <div class="card-header border-b">
+    <h3 class="card-title">Failure Rate</h3>
+  </div>
+  <div class="card-content !p-0">
+    <div class="table-wrapper">
+      <table class="table">
+        <thead class="table-header">
+          <tr class="table-row">
+            <th class="table-head">Job</th>
+            <th class="table-head">Failure Rate</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <% @job_class_names.each do |class_name| %>
+            <tr class="table-row" data-href="<%= jobs_path(class_name:, status: :failed) %>">
+              <td class="table-cell font-medium"><%= class_name.titleize %></td>
+              <td class="table-cell font-medium"><%= format_failure_rate(SolidQueueDashboard.decorate(SolidQueue::Job.where(class_name:)).failure_rate) %></td>
+            </tr>
           <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

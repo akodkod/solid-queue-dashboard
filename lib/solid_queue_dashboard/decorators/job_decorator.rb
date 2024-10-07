@@ -1,6 +1,10 @@
 module SolidQueueDashboard
   module Decorators
     class JobDecorator < SimpleDelegator
+      def color
+        Job.status_color(status)
+      end
+
       def status
         return @status if defined?(@status)
 

@@ -1,44 +1,31 @@
 module SolidQueueDashboard
   module ProcessesHelper
-    def process_color(process)
-      case process.kind
-      when SolidQueueDashboard::Process::SUPERVISOR
-        "blue"
-      when SolidQueueDashboard::Process::DISPATCHER
-        "purple"
-      when SolidQueueDashboard::Process::WORKER
-        "green"
-      when SolidQueueDashboard::Process::SCHEDULER
-        "amber"
-      else
-        "zinc"
-      end
+    def process_kind_circle(kind, options = {})
+      options[:class] = [ "circle", process_kind_circle_class(kind), options[:class] ].compact_blank.join(" ")
+      tag.span("", **options)
     end
 
-    def process_circle(process, options = {})
-      color = process_color(process)
-      color_class = case color
-      when "blue"
-        "bg-blue-500"
-      when "purple"
-        "bg-purple-500"
-      when "green"
-        "bg-green-500"
-      when "amber"
-        "bg-amber-500"
-      else
-        "bg-zinc-300"
-      end
-
-      default_classes = "inline-block size-2 rounded-full #{color_class}"
-      options[:class] = [ default_classes, options[:class] ].compact.join(" ")
-
-      content_tag(:span, "", **options)
+    def process_kind_circle_class(kind)
+      {
+        "blue": "circle-blue",
+        "green": "circle-green",
+        "yellow": "circle-yellow",
+        "purple": "circle-purple"
+      }[Process::KIND_COLORS[kind]&.to_sym || :zinc]
     end
 
-    def process_kind_badge(process, options = {})
-      badge_variant = process_color(process)
-      badge(process.kind, variant: badge_variant, **options)
+    def process_kind_badge(kind, options = {})
+      options[:class] = [ "badge", process_kind_badge_class(kind), options[:class] ].compact_blank.join(" ")
+      tag.span(kind.to_s.titleize, **options)
+    end
+
+    def process_kind_badge_class(kind)
+      {
+        "blue": "badge-blue",
+        "green": "badge-green",
+        "yellow": "badge-yellow",
+        "purple": "badge-purple"
+      }[Process::KIND_COLORS[kind]&.to_sym || :zinc]
     end
 
     def any_processes_filters?

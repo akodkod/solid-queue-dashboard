@@ -1,17 +1,19 @@
 <% highlight_ids = local_assigns[:highlight_ids] || [] %>
 
-<%= table do %>
-  <%= table_header do %>
-    <%= table_row do %>
-      <%= table_head "ID", class: "pl-6" %>
-      <%= table_head "Queue" %>
-      <%= table_head "Class" %>
-      <%= table_head "Status" %>
-      <%= table_head "Scheduled At" %>
-      <%= table_head %>
-    <% end %>
-  <% end %>
-  <%= table_body do %>
-    <%= render partial: 'solid_queue_dashboard/jobs/table_row', collection: jobs, as: :job, locals: { highlight_ids: highlight_ids } %>
-  <% end %>
-<% end %>
+<div class="table-wrapper">
+  <table class="table">
+    <thead class="table-header">
+      <tr class="table-row">
+        <th class="table-head pl-6">ID</th>
+        <th class="table-head">Status</th>
+        <th class="table-head">Class</th>
+        <th class="table-head">Queue</th>
+        <th class="table-head">Scheduled At</th>
+        <th class="table-head"></th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      <%= render partial: 'solid_queue_dashboard/jobs/table_row', collection: jobs, as: :job, locals: { highlight_ids: highlight_ids } %>
+    </tbody>
+  </table>
+</div>

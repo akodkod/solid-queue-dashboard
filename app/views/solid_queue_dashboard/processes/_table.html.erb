@@ -1,16 +1,18 @@
-<%= table do %>
-  <%= table_header do %>
-    <%= table_row do %>
-      <%= table_head "ID", class: "pl-6" %>
-      <%= table_head "Kind" %>
-      <%= table_head "Hostname" %>
-      <%= table_head "PID" %>
-      <%= table_head "Launched At" %>
-      <%= table_head "Last Heartbeat" %>
-      <%= table_head %>
-    <% end %>
-  <% end %>
-  <%= table_body do %>
-    <%= render partial: 'solid_queue_dashboard/processes/table_row', collection: processes, as: :process %>
-  <% end %>
-<% end %>
+<div class="table-wrapper">
+  <table class="table">
+    <thead class="table-header">
+      <tr class="table-row">
+        <th class="table-head pl-6">ID</th>
+        <th class="table-head">Kind</th>
+        <th class="table-head">Hostname</th>
+        <th class="table-head">PID</th>
+        <th class="table-head">Launched At</th>
+        <th class="table-head">Last Heartbeat</th>
+        <th class="table-head"></th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+      <%= render partial: 'solid_queue_dashboard/processes/table_row', collection: processes, as: :process %>
+    </tbody>
+  </table>
+</div>

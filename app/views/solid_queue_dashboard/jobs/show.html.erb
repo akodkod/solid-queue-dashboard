@@ -1,170 +1,192 @@
 <div class="flex items-center justify-between gap-4">
-  <h1 class="text-4xl  flex items-center gap-2">
-    <%= job_circle(@job, class: "!size-4") %>
+  <h1 class="text-4xl flex items-center gap-2">
+    <%= job_status_circle(@job.status, class: "size-4") %>
 
     <span class="tracking-tighter font-bold">
       Job #<%= @job.id %>
     </span>
 
-    <%= job_status_badge(@job, class: "ml-1.5") %>
+    <% if @job.arguments["executions"] > 0 %>
+      <span class="ml-2 badge badge-zinc">
+        <%= (@job.arguments["executions"] + 1).ordinalize %> attempt
+      </span>
+    <% end %>
   </h1>
 
   <div class="flex gap-2">
     <% if @job.failed? %>
       <%= form_with url: retry_job_path(@job) do %>
-        <%= button "Retry", variant: "outline" %>
+        <button class="btn btn-outline btn-md">
+          <%= icon_refresh_cw class: "size-4 text-amber-600" %>
+          <span>Retry Job</span>
+        </button>
       <% end %>
     <% end %>
   </div>
 </div>
 
-<%= card class: "mt-6" do %>
-  <%= card_content class: "pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16 md:gap-20" do %>
+<div class="card mt-6">
+  <div class="card-content pt-6 grid grid-cols-1 sm:grid-cols-2 sm:gap-16 md:gap-20">
     <div class="space-y-4">
-      <%= info_line do %>
-        <%= info_line_label "Queue" %>
-        <%= info_line_separator %>
-        <%= info_line_value do %>
+      <div class="info-line">
+        <span class="info-line-label">Status</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= job_status_badge(@job.status) %></span>
+      </div>
+
+      <div class="info-line">
+        <span class="info-line-label">Queue</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value">
           <%= link_to @job.queue_name.titleize, jobs_path(queue_name: @job.queue_name), class: "link" %>
-        <% end %>
-      <% end %>
+        </span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Class" %>
-        <%= info_line_separator %>
-        <%= info_line_value do %>
+      <div class="info-line">
+        <span class="info-line-label">Class</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value">
           <%= link_to @job.class_name, jobs_path(class_name: @job.class_name), class: "link" %>
-        <% end %>
-      <% end %>
+        </span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Status" %>
-        <%= info_line_separator %>
-        <%= info_line_value job_status_badge(@job) %>
-      <% end %>
-
-      <%= info_line do %>
-        <%= info_line_label "Active Job ID" %>
-        <%= info_line_separator %>
-        <%= info_line_value @job.active_job_id %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Active Job ID</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value"><%= @job.active_job_id %></span>
+      </div>
     </div>
 
     <div class="space-y-4">
-      <%= info_line do %>
-        <%= info_line_label "Created At" %>
-        <%= info_line_separator %>
-        <%= info_line_value @job.created_at, data: { date: true } %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Created At</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value" data-date><%= @job.created_at %></span>
+      </div>
 
-      <%= info_line do %>
-        <%= info_line_label "Scheduled At" %>
-        <%= info_line_separator %>
-        <%= info_line_value @job.scheduled_at, data: { date: true } %>
-      <% end %>
+      <div class="info-line">
+        <span class="info-line-label">Scheduled At</span>
+        <span class="info-line-separator"></span>
+        <span class="info-line-value" data-date><%= @job.scheduled_at %></span>
+      </div>
 
       <% if @job.success? || @job.retried? %>
-        <%= info_line do %>
-          <%= info_line_label "Finished At" %>
-          <%= info_line_separator %>
-
+        <div class="info-line">
+          <span class="info-line-label">Finished At</span>
+          <span class="info-line-separator"></span>
           <span class="text-sm text-muted-foreground font-normal">
-          <%= time_ago_in_words(@job.finished_at, include_seconds: true) %> ago
-        </span>
+            <%= time_ago_in_words(@job.finished_at, include_seconds: true) %> ago
+          </span>
+          <span class="info-line-value" data-date><%= @job.finished_at.to_fs(:database) %></span>
+        </div>
 
-          <%= info_line_value do %>
-            <%= tag.span @job.finished_at.to_fs(:database), data: { date: true } %>
-          <% end %>
-        <% end %>
-
-        <%= info_line do %>
-          <%= info_line_label "Time Taken" %>
-          <%= info_line_separator %>
-          <%= info_line_value distance_of_time_in_words(@job.scheduled_at, @job.finished_at, include_seconds: true) %>
-        <% end %>
+        <div class="info-line">
+          <span class="info-line-label">Time Taken</span>
+          <span class="info-line-separator"></span>
+          <span class="info-line-value"><%= distance_of_time_in_words(@job.scheduled_at, @job.finished_at, include_seconds: true) %></span>
+        </div>
       <% end %>
 
       <% if @job.failed? %>
-        <%= info_line do %>
-          <%= info_line_label "Failed At" %>
-          <%= info_line_separator %>
-          <%= info_line_value @job.failed_execution.created_at.to_fs(:database), data: { date: true } %>
-        <% end %>
+        <div class="info-line">
+          <span class="info-line-label">Failed At</span>
+          <span class="info-line-separator"></span>
+          <span class="info-line-value" data-date><%= @job.failed_execution.created_at.to_fs(:database) %></span>
+        </div>
 
-        <%= info_line do %>
-          <%= info_line_label "Time Taken" %>
-          <%= info_line_separator %>
-          <%= info_line_value distance_of_time_in_words(@job.scheduled_at, @job.failed_execution.created_at, include_seconds: true) %>
-        <% end %>
+        <div class="info-line">
+          <span class="info-line-label">Time Taken</span>
+          <span class="info-line-separator"></span>
+          <span class="info-line-value"><%= distance_of_time_in_words(@job.scheduled_at, @job.failed_execution.created_at, include_seconds: true) %></span>
+        </div>
       <% end %>
     </div>
-  <% end %>
-<% end %>
+  </div>
+</div>
 
 <% if @job.arguments["arguments"].present? %>
-  <%= card class: "mt-8 overflow-hidden" do %>
-    <%= card_header class: "border-b border-t-4 border-t-blue-500" do %>
-      <%= card_title "Arguments" %>
-      <%= card_description "The arguments that were passed to this job" %>
-    <% end %>
-    <%= card_content class: "pt-6" do %>
-      <pre><%= JSON.pretty_generate(@job.arguments["arguments"]) %></pre>
-    <% end %>
-  <% end %>
+  <div x-data="{ showAll: false }" class="card mt-8 overflow-hidden">
+    <div class="card-header border-b border-t-4 border-t-blue-500 dark:border-t-blue-600 flex flex-row justify-between gap-4">
+      <div class="space-y-1.5">
+        <% if @job.class_name === SolidQueueDashboard::Job::COMMAND_CLASS_NAME %>
+          <h3 class="card-title">Command</h3>
+          <p class="card-description">The command that was executed</p>
+        <% else %>
+          <h3 class="card-title">Arguments</h3>
+          <p class="card-description">The arguments that were passed to this job</p>
+        <% end %>
+      </div>
+
+      <button x-on:click="showAll = !showAll" class="btn btn-sm btn-outline">
+        <span x-show="!showAll">Show All Metadata</span>
+        <span x-show="showAll">Hide All Metadata</span>
+      </button>
+    </div>
+    <div class="card-content pt-6">
+      <% if @job.class_name === SolidQueueDashboard::Job::COMMAND_CLASS_NAME %>
+        <pre x-show="!showAll"><%= @job.arguments["arguments"][0] %></pre>
+      <% else %>
+        <% @job.arguments["arguments"].each do |argument| %>
+          <span class="badge badge-zinc text-sm"><%= JSON.pretty_generate(argument) %></span>
+        <% end %>
+      <% end %>
+
+      <pre x-show="showAll"><%= JSON.pretty_generate(@job.arguments) %></pre>
+    </div>
+  </div>
 <% end %>
 
 <% if @job.failed? %>
-  <%= card class: "mt-8 overflow-hidden" do %>
-    <%= card_content class: "pt-5 border-t-4 border-t-red-500" do %>
+  <div class="card mt-8 overflow-hidden">
+    <div class="card-content pt-5 border-t-4 border-t-red-500">
       <h4 class="text-lg font-bold">
         <%= @job.error_message %>
       </h4>
 
-      <ul class="list-decimal marker:text-sm marker:text-muted-foreground mt-1 ml-8 space-y-1">
-        <% Rails.backtrace_cleaner.clean(@job.failed_execution.error["backtrace"]).each do |line| %>
-          <li class="font-mono"><%= line %></li>
-        <% end %>
-      </ul>
-    <% end %>
-  <% end %>
+      <% backtrace = Rails.backtrace_cleaner.clean(@job.failed_execution.error["backtrace"]) %>
+      <% if backtrace.any? %>
+        <ul class="list-decimal marker:text-sm marker:text-muted-foreground mt-1 ml-8 space-y-1">
+          <% backtrace.each do |line| %>
+            <li class="font-mono"><%= line %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
 <% end %>
 
 <% if @job.execution_history.size > 1 %>
-  <%= card class: "mt-8 overflow-hidden" do %>
-    <%= card_header class: "border-b border-t-4 border-t-zinc-500" do %>
-      <%= card_title "Execution History" %>
-      <%= card_description "The history of executions of this exact job" %>
-    <% end %>
+  <div class="card mt-8 overflow-hidden">
+    <div class="card-header border-b border-t-4 border-t-zinc-500 dark:border-t-zinc-600">
+      <h3 class="card-title">Execution History</h3>
+      <p class="card-description">The history of executions of this exact job</p>
+    </div>
 
-    <%= card_content class: "!p-0" do %>
+    <div class="card-content !p-0">
       <%= render "table", jobs: SolidQueueDashboard.decorate(@job.execution_history.order(id: :desc)), highlight_ids: [@job.id] %>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 <% end %>
 
 <% if @job_history.size > 1 %>
-  <%= card class: "mt-8 overflow-hidden" do %>
-    <%= card_header class: "border-b border-t-4 border-t-zinc-500 flex !flex-row justify-between items-center" do %>
+  <div class="card mt-8 overflow-hidden">
+    <div class="card-header border-b border-t-4 border-t-zinc-500 dark:border-t-zinc-600 flex !flex-row justify-between items-center">
       <div class="space-y-1.5">
-        <%= card_title "Similar Jobs" %>
-        <%= card_description "The history of executions of the same job class" %>
+        <h3 class="card-title">Similar Jobs</h3>
+        <p class="card-description">The history of executions of the same job class</p>
       </div>
 
-      <%= button_link "View All",
-        href: jobs_path(class_name: @job.class_name),
-        variant: "outline",
-        size: "sm"
-      %>
-    <% end %>
+      <%= link_to "View All", jobs_path(class_name: @job.class_name), class: "btn btn-outline btn-sm" %>
+    </div>
 
-    <%= card_content class: "!p-0" do %>
+    <div class="card-content !p-0">
       <%= render "table", jobs: @job_history %>
-    <% end %>
+    </div>
 
-    <%= card_footer class: "border-t pt-6" do %>
+    <div class="card-footer border-t pt-6">
       <p class="text-sm text-muted-foreground">
         Showing the last 10 executions of this job
       </p>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 <% end %>

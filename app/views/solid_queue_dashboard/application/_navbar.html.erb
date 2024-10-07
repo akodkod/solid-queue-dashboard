@@ -1,7 +1,50 @@
-<%= navbar class: "mb-6" do %>
-  <%= link_to "Solid Queue", root_path, class: "text-xl font-bold tracking-tight" %>
+<nav class="navbar mb-6">
+  <%= link_to root_path, class: "inline-flex items-center gap-0.5 text-xl font-bold tracking-tight translate-y-px" do %>
+    <span class="circle circle-blue"></span>
+    <span class="circle circle-green"></span>
+    <span class="circle circle-yellow"></span>
+    <span class="circle circle-red"></span>
+    <span class="ml-1.5 -translate-y-px">Solid Queue</span>
+  <% end %>
 
-  <%= navbar_item "Jobs", href: jobs_path %>
-  <%= navbar_item "Processes", href: processes_path %>
-  <%= navbar_item "Recurring Tasks", href: recurring_tasks_path %>
-<% end %>
+  <div class="navbar-section">
+    <%= link_to root_path, class: "navbar-item #{current_page?(controller: 'dashboard', action: 'index') ? 'navbar-item-current' : 'navbar-item-default'}" do %>
+      <%= icon_layout_dashboard class: "size-4 mr-1.5" %>
+      Dashboard
+    <% end %>
+
+    <%= link_to jobs_path, class: "navbar-item #{current_page?(jobs_path) ? 'navbar-item-current' : 'navbar-item-default'}" do %>
+      <%= icon_logs class: "size-4 mr-1.5" %>
+      Jobs
+    <% end %>
+
+    <%= link_to processes_path, class: "navbar-item #{current_page?(processes_path) ? 'navbar-item-current' : 'navbar-item-default'}" do %>
+      <%= icon_server class: "size-4 mr-1.5" %>
+      Processes
+    <% end %>
+
+    <%= link_to recurring_tasks_path, class: "navbar-item #{current_page?(recurring_tasks_path) ? 'navbar-item-current' : 'navbar-item-default'}" do %>
+      <%= icon_clock class: "size-4 mr-1.5" %>
+      Recurring Tasks
+    <% end %>
+  </div>
+
+  <div class="ml-auto">
+    <div>
+      
+    </div>
+
+    <%= form_with url: toggle_appearance_path, method: :post do |f| %>
+      <button
+        type="submit"
+        class="btn btn-icon btn-secondary"
+      >
+        <% if dark_mode?%>
+          <%= icon_sun class: "size-4" %>
+        <% else %>
+          <%= icon_moon class: "size-4" %>
+        <% end %>
+      </button>
+    <% end %>
+  </div>
+</nav>

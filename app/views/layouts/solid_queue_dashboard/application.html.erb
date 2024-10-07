@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="<%= dark_mode? ? "dark" : "" %>" lang="en">
 <head>
   <title>Solid Queue Dashboard</title>
 
@@ -11,9 +11,11 @@
   <%= javascript_include_tag "solid_queue_dashboard/alpine", defer: true %>
 </head>
 <body class="pb-[15vh] sm:pb-[25vh]">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
     <%= render 'navbar' %>
+    <%= render 'flash_messages' %>
     <%= yield %>
+    <%= render 'footer' %>
   </div>
 </body>
 </html>
