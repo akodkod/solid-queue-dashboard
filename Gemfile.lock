@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    solid_queue_dashboard (0.1.0)
+    solid_queue_dashboard (0.1.1)
       solid_queue (>= 1.0.0)
 
 GEM

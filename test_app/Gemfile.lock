@@ -2,7 +2,6 @@ PATH
   remote: ..
   specs:
     solid_queue_dashboard (0.1.0)
-      rails (>= 7.0.0)
       solid_queue (>= 1.0.0)
 
 GEM

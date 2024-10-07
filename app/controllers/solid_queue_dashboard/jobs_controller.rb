@@ -32,7 +32,7 @@ module SolidQueueDashboard
       jobs = jobs.where(queue_name: params[:queue_name]) if params[:queue_name].present?
 
       @pagination = paginate(jobs, page: params[:page].to_i, per_page: params[:per_page].to_i)
-      @jobs = SolidQueueDashboard.decorate(@pagination.records)
+      @jobs = SolidQueueDashboard.decorate(@pagination[:records])
     end
 
     def set_job

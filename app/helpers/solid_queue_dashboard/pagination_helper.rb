@@ -10,13 +10,13 @@ module SolidQueueDashboard
       total_count = scope.count
       total_pages = (total_count.to_f / per_page).ceil
 
-      OpenStruct.new(
+      {
         records: records,
         current_page: page,
         per_page: per_page,
         total_pages: total_pages,
         total_count: total_count
-      )
+      }
     end
 
     def page_range(current_page, total_pages, window: 2)
