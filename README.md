@@ -21,6 +21,7 @@
 - 🔄 Retry jobs from the UI
 - 🚫 No dependencies
 - 🐒 No monkey patching
+- 💈 TailwindCSS
 
 ## Roadmap
 - 🏊‍♂️ Auto-pooling
