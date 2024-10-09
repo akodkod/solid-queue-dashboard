@@ -10,7 +10,8 @@ module SolidQueueDashboard
         "blue": "circle-blue",
         "green": "circle-green",
         "yellow": "circle-yellow",
-        "purple": "circle-purple"
+        "purple": "circle-purple",
+        "sky": "circle-sky",
       }[Process::KIND_COLORS[kind]&.to_sym || :zinc]
     end
 
@@ -24,7 +25,8 @@ module SolidQueueDashboard
         "blue": "badge-blue",
         "green": "badge-green",
         "yellow": "badge-yellow",
-        "purple": "badge-purple"
+        "purple": "badge-purple",
+        "sky": "badge-sky",
       }[Process::KIND_COLORS[kind]&.to_sym || :zinc]
     end
 

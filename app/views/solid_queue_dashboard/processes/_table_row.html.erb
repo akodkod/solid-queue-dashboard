@@ -5,6 +5,12 @@
 
   <td class="table-cell">
     <%= process_kind_badge(process.kind) %>
+
+    <% if process.claimed_executions.any? %>
+      <span class="ml-0.5 text-xs text-muted-foreground">
+        Running <%= pluralize(process.claimed_executions.count, "job") %>
+      </span>
+    <% end %>
   </td>
 
   <td class="table-cell"><%= process.hostname %></td>

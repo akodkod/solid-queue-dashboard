@@ -1,4 +1,4 @@
-<div class="grid grid-cols-5 gap-4">
+<div class="grid grid-cols-6 gap-4">
   <% SolidQueueDashboard::Job::STATUSES.each do |status| %>
     <div class="card" data-href="<%= jobs_path(status:) %>">
       <div class="card-content pt-5">

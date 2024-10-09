@@ -8,7 +8,9 @@ module SolidQueueDashboard
       def status
         return @status if defined?(@status)
 
-        @status = if retried?
+        @status = if running?
+          Job::RUNNING
+        elsif retried?
           Job::RETRIED
         elsif failed?
           Job::FAILED
@@ -19,6 +21,11 @@ module SolidQueueDashboard
         else
           Job::PENDING
         end
+      end
+
+      def running?
+        return @running if defined?(@running)
+        @running = claimed_execution.present?
       end
 
       def success?
@@ -44,7 +51,7 @@ module SolidQueueDashboard
 
       def pending?
         return @pending if defined?(@pending)
-        @pending = !finished_at.present?
+        @pending = !finished_at.present? && !running?
       end
 
       def execution_history

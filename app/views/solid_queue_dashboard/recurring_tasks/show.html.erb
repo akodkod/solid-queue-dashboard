@@ -122,7 +122,12 @@
   <div class="card-content pt-5">
     <ul class="list-decimal marker:text-sm marker:text-muted-foreground ml-4 space-y-1">
       <% @recurring_task.next_runs.each do |run_time| %>
-        <li data-date><%= run_time.strftime("%Y-%m-%d %H:%M:%S %Z") %></li>
+        <li>
+          <span data-date><%= run_time.strftime("%Y-%m-%d %H:%M:%S %Z") %></span>
+          <span class="text-muted-foreground">
+            in <%= distance_of_time_in_words(Time.current, run_time) %>
+          </span>
+        </li>
       <% end %>
     </ul>
   </div>

@@ -901,6 +901,18 @@ body {
   color: rgb(96 165 250 / var(--tw-text-opacity));
 }
 
+.badge-indigo {
+  border-color: transparent;
+  background-color: rgb(99 102 241 / 0.15);
+  --tw-text-opacity: 1;
+  color: rgb(67 56 202 / var(--tw-text-opacity));
+}
+
+.badge-indigo:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(129 140 248 / var(--tw-text-opacity));
+}
+
 .badge-purple {
   border-color: transparent;
   background-color: rgb(168 85 247 / 0.15);
@@ -915,7 +927,7 @@ body {
 
 .badge-zinc {
   border-color: transparent;
-  background-color: rgb(82 82 91 / 0.1);
+  background-color: rgb(82 82 91 / 0.075);
   --tw-text-opacity: 1;
   color: rgb(63 63 70 / var(--tw-text-opacity));
 }
@@ -969,6 +981,11 @@ body {
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
 }
 
+.circle-indigo {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 102 241 / var(--tw-bg-opacity));
+}
+
 .circle-purple {
   --tw-bg-opacity: 1;
   background-color: rgb(168 85 247 / var(--tw-bg-opacity));
@@ -976,7 +993,7 @@ body {
 
 .circle-zinc {
   --tw-bg-opacity: 1;
-  background-color: rgb(82 82 91 / var(--tw-bg-opacity));
+  background-color: rgb(161 161 170 / var(--tw-bg-opacity));
 }
 
 /*
@@ -1667,8 +1684,8 @@ body {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
-.grid-cols-5 {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .\!flex-row {
@@ -1681,6 +1698,10 @@ body {
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-center {
@@ -1785,6 +1806,11 @@ body {
   border-top-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
+.border-t-sky-500 {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(14 165 233 / var(--tw-border-opacity));
+}
+
 .border-t-zinc-500 {
   --tw-border-opacity: 1;
   border-top-color: rgb(113 113 122 / var(--tw-border-opacity));
@@ -1796,6 +1822,10 @@ body {
 
 .\!p-0 {
   padding: 0px !important;
+}
+
+.p-0 {
+  padding: 0px;
 }
 
 .px-2 {
@@ -1951,6 +1981,10 @@ body {
   }
 }
 
+.running {
+  animation-play-state: running;
+}
+
 .marker\:text-sm *::marker {
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -1994,6 +2028,11 @@ body {
 .dark\:border-t-purple-600:is(.dark *) {
   --tw-border-opacity: 1;
   border-top-color: rgb(147 51 234 / var(--tw-border-opacity));
+}
+
+.dark\:border-t-sky-600:is(.dark *) {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(2 132 199 / var(--tw-border-opacity));
 }
 
 .dark\:border-t-zinc-600:is(.dark *) {

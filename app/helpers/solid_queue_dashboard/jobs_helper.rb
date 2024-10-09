@@ -11,7 +11,10 @@ module SolidQueueDashboard
         "amber": "circle-amber",
         "red": "circle-red",
         "blue": "circle-blue",
-        "zinc": "circle-zinc"
+        "sky": "circle-sky",
+        "zinc": "circle-zinc",
+        "indigo": "circle-indigo",
+        "purple": "circle-purple"
       }[Job::STATUS_COLORS[status]&.to_sym || :zinc]
     end
 
@@ -26,7 +29,10 @@ module SolidQueueDashboard
         "amber": "badge-amber",
         "red": "badge-red",
         "blue": "badge-blue",
-        "zinc": "badge-zinc"
+        "sky": "badge-sky",
+        "zinc": "badge-zinc",
+        "indigo": "badge-indigo",
+        "purple": "badge-purple"
       }[Job::STATUS_COLORS[status]&.to_sym || :zinc]
     end
 

@@ -66,9 +66,22 @@
   </div>
 </div>
 
+<% if @process.claimed_executions.any? %>
+  <div class="card mt-8 overflow-hidden">
+    <div class="card-header border-b border-t-4 border-t-sky-500 dark:border-t-sky-600">
+      <h2 class="card-title">Running Jobs</h2>
+      <p class="card-description">Jobs that this process is currently running</p>
+    </div>
+
+    <div class="card-content p-0">
+      <%= render partial: 'solid_queue_dashboard/jobs/table', locals: { jobs: @process.claimed_executions.map { |execution| SolidQueueDashboard::Decorators::JobDecorator.new(execution.job) } } %>
+    </div>
+  </div>
+<% end %>
+
 <% if @process.metadata.present? %>
   <div class="card mt-8 overflow-hidden">
-    <div class="card-header border-b border-t-4 border-t-blue-500 dark:border-t-blue-600">
+    <div class="card-header border-b border-t-4 border-t-amber-500 dark:border-t-amber-600">
       <h2 class="card-title">Metadata</h2>
       <p class="card-description">Additional information about this process</p>
     </div>

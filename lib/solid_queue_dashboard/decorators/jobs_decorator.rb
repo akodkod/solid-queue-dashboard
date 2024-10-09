@@ -3,6 +3,8 @@ module SolidQueueDashboard
     class JobsDecorator < SimpleDelegator
       def with_status(status)
         case status.to_sym
+        when Job::RUNNING
+          running
         when Job::SUCCESS
           success
         when Job::FAILED
@@ -18,6 +20,10 @@ module SolidQueueDashboard
         end
       end
 
+      def running
+        where.associated(:claimed_execution)
+      end
+
       def success
         where.not(finished_at: nil)
           .where.not(id: failed)
@@ -31,6 +37,7 @@ module SolidQueueDashboard
       def pending
         where(finished_at: nil, scheduled_at: ..Time.current)
           .where.not(id: failed)
+          .where.not(id: running)
       end
 
       def retried

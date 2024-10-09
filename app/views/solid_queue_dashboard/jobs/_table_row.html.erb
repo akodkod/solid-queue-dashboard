@@ -14,6 +14,12 @@
 
   <td class="table-cell">
     <%= job_status_badge(job.status) %>
+    <% if job.running? %>
+      <br />
+      <span class="text-xs text-muted-foreground">
+        <%= time_ago_in_words(job.claimed_execution.created_at, include_seconds: true) %>
+      </span>
+    <% end %>
   </td>
 
   <td class="table-cell">
@@ -29,9 +35,9 @@
       <p class="font-medium"><%= job.class_name %></p>
 
       <% if job.arguments["arguments"].present? %>
-        <p class="mt-0.5">
+        <p class="inline-flex flex-wrap gap-0.5 items-start mt-0.5">
           <% job.arguments["arguments"].each do |argument| %>
-            <span class="badge badge-zinc"><%= truncate(JSON.pretty_generate(argument), length: 80) %></span>
+            <span class="badge badge-zinc text-xs"><%= truncate(JSON.pretty_generate(argument), length: 60) %></span>
           <% end %>
         </p>
       <% end %>
@@ -51,7 +57,17 @@
   </td>
 
   <td class="table-cell">
-    <% if job.success? || job.retried? %>
+    <% if job.running? %>
+      <p class="text-sm text-muted-foreground">
+        Running for <strong class="font-medium text-foreground"><%= time_ago_in_words(job.claimed_execution.created_at, include_seconds: true) %></strong>
+        <% if job.claimed_execution.process %>
+          by <strong class="font-medium text-foreground">
+            <%= process_kind_badge(job.claimed_execution.process.kind) %>
+            <%= link_to "##{job.claimed_execution.process.id}", process_path(job.claimed_execution.process), class: "link" %>
+          </strong>
+        <% end %>
+      </p>
+    <% elsif job.success? || job.retried? %>
       <p class="text-sm text-muted-foreground">
         <%= job.retried? ? "Failed" : "Finished" %> at <strong class="font-medium text-foreground" data-date="<%= job.finished_at.to_fs(:database) %>"><%= job.finished_at %></strong><br />
         <span class="text-xs"><%= time_ago_in_words(job.scheduled_at, include_seconds: true) %> ago</span>

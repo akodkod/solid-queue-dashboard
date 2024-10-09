@@ -126,9 +126,11 @@
       <% if @job.class_name === SolidQueueDashboard::Job::COMMAND_CLASS_NAME %>
         <pre x-show="!showAll"><%= @job.arguments["arguments"][0] %></pre>
       <% else %>
-        <% @job.arguments["arguments"].each do |argument| %>
-          <span class="badge badge-zinc text-sm"><%= JSON.pretty_generate(argument) %></span>
-        <% end %>
+        <div x-show="!showAll">
+          <% @job.arguments["arguments"].each do |argument| %>
+            <span class="badge badge-zinc text-sm"><%= JSON.pretty_generate(argument) %></span>
+          <% end %>
+        </div>
       <% end %>
 
       <pre x-show="showAll"><%= JSON.pretty_generate(@job.arguments) %></pre>

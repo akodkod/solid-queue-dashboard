@@ -9,13 +9,13 @@ module SolidQueueDashboard
     KINDS = [ SUPERVISOR, DISPATCHER, WORKER, SCHEDULER ]
 
     KIND_COLORS = {
-      SUPERVISOR => "blue",
+      SUPERVISOR => "yellow",
       DISPATCHER => "green",
-      WORKER => "yellow",
+      WORKER => "sky",
       SCHEDULER => "purple"
     }
 
-    HEARTBEAT_DEAD_THRESHOLD = 1.minute
+    HEARTBEAT_DEAD_THRESHOLD = 3.minutes
 
     def self.kind_color(kind)
       KIND_COLORS[kind] || "zinc"
