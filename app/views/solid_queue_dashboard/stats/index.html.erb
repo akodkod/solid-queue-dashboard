@@ -1,0 +1,25 @@
+<div class="card mt-4">
+  <div class="card-header border-b">
+    <h3 class="card-title">Failure Rate</h3>
+  </div>
+  <div class="card-content !p-0">
+    <div class="table-wrapper">
+      <table class="table">
+        <thead class="table-header">
+          <tr class="table-row">
+            <th class="table-head">Job</th>
+            <th class="table-head">Failure Rate</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <% @job_class_names.each do |class_name| %>
+            <tr class="table-row" data-href="<%= jobs_path(class_name:, status: :failed) %>">
+              <td class="table-cell font-medium"><%= class_name.titleize %></td>
+              <td class="table-cell font-medium"><%= format_failure_rate(SolidQueueDashboard.decorate(SolidQueue::Job.where(class_name:)).failure_rate) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

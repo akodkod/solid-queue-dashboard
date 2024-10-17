@@ -13,6 +13,8 @@ SolidQueueDashboard::Engine.routes.draw do
     end
   end
 
+  get "stats", to: "stats#index", as: :stats
   post "appearance/toggle", to: "appearance#toggle", as: :toggle_appearance
+
   root "dashboard#index"
 end

@@ -8,14 +8,16 @@
 
   <%= stylesheet_link_tag "solid_queue_dashboard/application", media: "all" %>
   <%= javascript_include_tag "solid_queue_dashboard/application" %>
+  <%= javascript_include_tag "chartkick" %>
+  <%= javascript_include_tag "Chart.bundle" %>
   <%= javascript_include_tag "solid_queue_dashboard/alpine", defer: true %>
 </head>
 <body class="pb-[15vh] sm:pb-[25vh]">
   <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
-    <%= render 'navbar' %>
-    <%= render 'flash_messages' %>
+    <%= render "navbar" %>
+    <%= render "flash_messages" %>
     <%= yield %>
-    <%= render 'footer' %>
+    <%= render "footer" %>
   </div>
 </body>
 </html>

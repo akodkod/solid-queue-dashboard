@@ -2,13 +2,13 @@
 
 <p align="center">
   <a href="https://github.com/akodkod/solid-queue-dashboard#gh-light-mode-only">
-    <img src="https://github.com/user-attachments/assets/90cb68cf-73d9-41bf-b9d5-93da7c36f204" alt="Solid Queue Dashboard Light Mode">
+    <img src="https://github.com/user-attachments/assets/55aa4a3c-da51-471b-8f58-0cf1f9a1f8da" alt="Solid Queue Dashboard Light Mode">
   </a>
   <a href="https://github.com/akodkod/solid-queue-dashboard#gh-dark-mode-only">
-    <img src="https://github.com/user-attachments/assets/ea089277-67fc-4bc9-91d8-2e3e7349b0c9" alt="Solid Queue Dashboard Dark Mode">
+    <img src="https://github.com/user-attachments/assets/645558cb-c20f-4d4b-9697-55282710ea6c" alt="Solid Queue Dashboard Dark Mode">
   </a>
 
-  _👋 I'm available for hire → [kodkod.me](https://kodkod.me)_
+  _👋 I'm Available for Hire → [kodkod.me](https://kodkod.me)_
 </p>
 
 ## Features
@@ -19,13 +19,12 @@
 - 📜 View execution history
 - 🔍 Filter options
 - 🔄 Retry jobs from the UI
-- 🚫 No dependencies
+- 🥬 Auto-refresh
+- 📈 Add charts
 - 🐒 No monkey patching
 - 💈 TailwindCSS
 
 ## Roadmap
-- 🏊‍♂️ Auto-pooling
-- 📈 Add charts
 - 🚀 Manually trigger jobs
 - ⏹️ Cancel long jobs (if possible)
 - 📊 More statistics and insights
@@ -44,7 +43,7 @@ bundle add solid_queue_dashboard
 Or add this line to your `Gemfile`:
 
 ```bash
-gem "solid_queue_dashboard", "~> 0.1.0"
+gem "solid_queue_dashboard", "~> 0.2.0"
 ```
 
 Add this line to `routes.rb`:
@@ -86,10 +85,14 @@ To generate dummy data:
 ```
 cd test_app
 rails jobs:generate_dummy_data
-./bin/jobs
 ```
 
 ## License
 
 This gem is open source under the [MIT License](http://opensource.org/licenses/MIT).
+
+---
+
+_Made with love by Ukrainians 💙💛_  
+_[Help Ukraine](https://u24.gov.ua/)_
 

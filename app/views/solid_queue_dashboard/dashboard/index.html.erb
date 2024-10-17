@@ -1,4 +1,18 @@
-<div class="grid grid-cols-6 gap-4">
+<div class="card card-content p-6 relative">
+  <%= form_with url: root_path, method: :get, class: "absolute top-6 right-6" do |form| %>
+    <%= form.hidden_field :auto_refresh_period %>
+    <%= form.select :chart_period,
+      [["15 minutes", "15m"], ["30 minutes", "30m"], ["1 hour", "1h"], ["3 hours", "3h"], ["6 hours", "6h"], ["12 hours", "12h"], ["1 day", "1d"], ["3 days", "3d"], ["1 week", "1w"]],
+      { selected: params[:chart_period].presence || "30m" },
+      class: "select",
+      data: { auto_submit: true }
+    %>
+  <% end %>
+
+  <%= line_chart @charts, points: false, thousands: "," %>
+</div>
+
+<div class="grid grid-cols-6 gap-4 mt-4">
   <% SolidQueueDashboard::Job::STATUSES.each do |status| %>
     <div class="card" data-href="<%= jobs_path(status:) %>">
       <div class="card-content pt-5">
@@ -7,35 +21,9 @@
           <span class="ml-0.5 -translate-y-px circle <%= job_status_circle_class(status) %>"></span>
         </h4>
         <p class="text-4xl font-bold mt-1 text-black dark:text-white">
-          <%= @jobs.with_status(status).count %>
+          <%= number_with_delimiter(@jobs.with_status(status).count) %>
         </p>
       </div>
     </div>
   <% end %>
-</div>
-
-<div class="card mt-4">
-  <div class="card-header border-b">
-    <h3 class="card-title">Failure Rate</h3>
-  </div>
-  <div class="card-content !p-0">
-    <div class="table-wrapper">
-      <table class="table">
-        <thead class="table-header">
-          <tr class="table-row">
-            <th class="table-head">Job</th>
-            <th class="table-head">Failure Rate</th>
-          </tr>
-        </thead>
-        <tbody class="table-body">
-          <% @job_class_names.each do |class_name| %>
-            <tr class="table-row" data-href="<%= jobs_path(class_name:, status: :failed) %>">
-              <td class="table-cell font-medium"><%= class_name.titleize %></td>
-              <td class="table-cell font-medium"><%= format_failure_rate(SolidQueueDashboard.decorate(SolidQueue::Job.where(class_name:)).failure_rate) %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>

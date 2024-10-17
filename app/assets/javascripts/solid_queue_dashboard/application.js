@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Format dates
-  document.querySelectorAll('[data-date]').forEach(function(element) {
+  document.querySelectorAll('[data-date]').forEach(function (element) {
     const dateString = element.textContent.trim();
     const date = new Date(dateString);
 
@@ -37,10 +37,24 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Handle auto-submit elements
-  document.querySelectorAll('[data-auto-submit]').forEach(function(element) {
-    element.addEventListener('change', function() {
+  document.querySelectorAll('[data-auto-submit]').forEach(function (element) {
+    element.addEventListener('change', function () {
       const form = element.closest('form');
       if (form) form.submit();
     });
   });
+
+
+  // Auto-refresh functionality for dashboard page
+  const searchParams = new URLSearchParams(window.location.search);
+  const refreshInterval = parseInt(searchParams.get('auto_refresh_period'));
+
+  if (refreshInterval) {
+    setInterval(refreshHomePage, refreshInterval * 1000);
+  }
+
+  function refreshHomePage() {
+    // TODO: Implement a smart refresh strategy using Fetch or Turbo
+    window.location.reload();
+  }
 });

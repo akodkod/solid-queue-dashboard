@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "rails"
+require "groupdate"
+require "chartkick"
 require_relative "solid_queue_dashboard/version"
 require_relative "solid_queue_dashboard/configuration"
 require_relative "solid_queue_dashboard/engine"

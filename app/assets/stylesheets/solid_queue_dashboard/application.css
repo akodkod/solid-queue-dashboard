@@ -584,12 +584,12 @@ video {
 
 .dark {
   --background: 240 10% 5.4%;
-  --foreground: 0 0% 98%;
+  --foreground: 0 0% 92%;
   --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
+  --card-foreground: 0 0% 92%;
   --popover: 240 10% 3.9%;
   --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
+  --primary: 0 0% 95%;
   --primary-foreground: 240 5.9% 10%;
   --secondary: 240 3.7% 15.9%;
   --secondary-foreground: 0 0% 98%;
@@ -794,6 +794,16 @@ body {
 
 .badge-primary:hover {
   background-color: hsl(var(--primary) / 0.8);
+}
+
+.badge-secondary {
+  border-color: transparent;
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.badge-secondary:hover {
+  background-color: hsl(var(--secondary) / 0.8);
 }
 
 .badge-destructive {
@@ -1521,6 +1531,22 @@ body {
   position: static;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.right-6 {
+  right: 1.5rem;
+}
+
+.top-6 {
+  top: 1.5rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1544,6 +1570,10 @@ body {
 
 .ml-0\.5 {
   margin-left: 0.125rem;
+}
+
+.ml-1 {
+  margin-left: 0.25rem;
 }
 
 .ml-1\.5 {
@@ -1658,6 +1688,10 @@ body {
   width: 6rem;
 }
 
+.w-40 {
+  width: 10rem;
+}
+
 .w-5 {
   width: 1.25rem;
 }
@@ -1722,6 +1756,10 @@ body {
 
 .gap-1 {
   gap: 0.25rem;
+}
+
+.gap-1\.5 {
+  gap: 0.375rem;
 }
 
 .gap-2 {
@@ -1828,6 +1866,10 @@ body {
   padding: 0px;
 }
 
+.p-6 {
+  padding: 1.5rem;
+}
+
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1850,6 +1892,10 @@ body {
 
 .pb-\[15vh\] {
   padding-bottom: 15vh;
+}
+
+.pl-1 {
+  padding-left: 0.25rem;
 }
 
 .pl-6 {

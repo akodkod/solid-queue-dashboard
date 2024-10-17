@@ -1,5 +1,5 @@
 <nav class="navbar mb-6">
-  <%= link_to root_path, class: "inline-flex items-center gap-0.5 text-xl font-bold tracking-tight translate-y-px" do %>
+  <%= link_to root_path, class: "inline-flex items-center gap-0.5 text-xl font-bold tracking-tight translate-y-px pl-1" do %>
     <span class="circle circle-blue"></span>
     <span class="circle circle-green"></span>
     <span class="circle circle-yellow"></span>
@@ -21,18 +21,41 @@
     <%= link_to processes_path, class: "navbar-item #{current_page?(processes_path) ? 'navbar-item-current' : 'navbar-item-default'}" do %>
       <%= icon_server class: "size-4 mr-1.5" %>
       Processes
+
+      <span class="badge <%= current_page?(processes_path) ? 'badge-secondary' : 'badge-primary' %> ml-1 text-xs">
+        <%= SolidQueue::Process.count %>
+      </span>
     <% end %>
 
     <%= link_to recurring_tasks_path, class: "navbar-item #{current_page?(recurring_tasks_path) ? 'navbar-item-current' : 'navbar-item-default'}" do %>
       <%= icon_clock class: "size-4 mr-1.5" %>
       Recurring Tasks
+
+      <span class="badge <%= current_page?(recurring_tasks_path) ? 'badge-secondary' : 'badge-primary' %> ml-1 text-xs">
+        <%= SolidQueue::RecurringTask.count %>
+      </span>
+    <% end %>
+
+    <%= link_to stats_path, class: "navbar-item #{current_page?(stats_path) ? 'navbar-item-current' : 'navbar-item-default'}" do %>
+      <%= icon_chart_scatter class: "size-4 mr-1.5" %>
+      Stats
     <% end %>
   </div>
 
-  <div class="ml-auto">
-    <div>
-      
-    </div>
+  <div class="ml-auto flex gap-4">
+    <% if current_page?(controller: 'dashboard', action: 'index') %>
+      <%= form_with url: root_path, method: :get, class: "flex gap-1.5 items-center" do |form| %>
+        <%= form.hidden_field :chart_period %>
+
+        <%= icon_refresh_cw class: "size-4 text-muted-foreground" %>
+        <%= form.select :auto_refresh_period,
+          [["Auto-Refresh Off", "off"], ["15 seconds", "15"], ["30 seconds", "30"], ["1 minute", "60"], ["3 minutes", "180"], ["5 minutes", "300"], ["10 minutes", "600"], ["15 minutes", "900"], ["30 minutes", "1800"], ["1 hour", "3600"]],
+          { selected: params[:auto_refresh_period].presence || "off" },
+          class: "select w-40",
+          data: { auto_submit: true }
+        %>
+      <% end %>
+    <% end %>
 
     <%= form_with url: toggle_appearance_path, method: :post do |f| %>
       <button

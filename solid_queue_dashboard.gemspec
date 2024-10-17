@@ -36,4 +36,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = [ "lib" ]
 
   spec.add_dependency "solid_queue", ">= 1.0.0"
+  spec.add_dependency "groupdate", ">= 6.5"
+  spec.add_dependency "chartkick", ">= 5.0"
 end
